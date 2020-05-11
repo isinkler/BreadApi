@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bread.Services.Contracts;
-using Microsoft.AspNetCore.Http;
+﻿using Bread.Services.Contracts;
+
 using Microsoft.AspNetCore.Mvc;
 
+using System.Collections.Generic;
+
 namespace Bread.WebApi.Controllers
-{     
+{
     [Route("api/[controller]")]
     [ApiController]
     public class RestaurantController : ControllerBase
