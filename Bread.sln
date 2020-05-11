@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.WebApi", "Bread\Bread.WebApi.csproj", "{31B9BE84-7EC2-47A0-81B1-C3C0CAFC2274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.WebApi", "Bread.WebApi\Bread.WebApi.csproj", "{31B9BE84-7EC2-47A0-81B1-C3C0CAFC2274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Services", "Bread.Services\Bread.Services.csproj", "{FCF020A7-6B01-434C-94C5-BDE18703A4EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Services", "Bread.Services\Bread.Services.csproj", "{FCF020A7-6B01-434C-94C5-BDE18703A4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Data", "Bread.Data\Bread.Data.csproj", "{B7198879-6FE3-49BE-B376-565E96E7D552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Data", "Bread.Data\Bread.Data.csproj", "{B7198879-6FE3-49BE-B376-565E96E7D552}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{34FF79B4-5F75-47C9-B0F2-D29FB810EA79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C20DD53E-D91D-46EB-B368-A95EF3342148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Repositories", "Bread.Repositories\Bread.Repositories.csproj", "{7310531F-5E62-473A-AE0D-7616B3C88158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Repositories", "Bread.Repositories\Bread.Repositories.csproj", "{7310531F-5E62-473A-AE0D-7616B3C88158}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F020A5EB-37D6-4843-AA32-1A5FA8C63380}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.DependencyInjection", "Bread.IoC\Bread.DependencyInjection.csproj", "{92B9792F-B160-4D10-B5D8-287C915BB2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection", "Bread.IoC\Bread.DependencyInjection.csproj", "{92B9792F-B160-4D10-B5D8-287C915BB2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{31B9BE84-7EC2-47A0-81B1-C3C0CAFC2274} = {8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}
 		{FCF020A7-6B01-434C-94C5-BDE18703A4EF} = {C20DD53E-D91D-46EB-B368-A95EF3342148}
 		{B7198879-6FE3-49BE-B376-565E96E7D552} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 		{7310531F-5E62-473A-AE0D-7616B3C88158} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
