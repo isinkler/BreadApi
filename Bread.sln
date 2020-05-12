@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Models", "Bread.Models\Bread.Models.csproj", "{480C1889-7BD6-41BD-B682-D8CC8F907D41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{92B9792F-B160-4D10-B5D8-287C915BB2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92B9792F-B160-4D10-B5D8-287C915BB2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92B9792F-B160-4D10-B5D8-287C915BB2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480C1889-7BD6-41BD-B682-D8CC8F907D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480C1889-7BD6-41BD-B682-D8CC8F907D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480C1889-7BD6-41BD-B682-D8CC8F907D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480C1889-7BD6-41BD-B682-D8CC8F907D41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{B7198879-6FE3-49BE-B376-565E96E7D552} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 		{7310531F-5E62-473A-AE0D-7616B3C88158} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 		{92B9792F-B160-4D10-B5D8-287C915BB2FC} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
+		{480C1889-7BD6-41BD-B682-D8CC8F907D41} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E77E917D-DA77-4BF9-B61F-FBC4E1DCC6CB}

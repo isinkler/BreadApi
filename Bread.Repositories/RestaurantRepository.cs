@@ -1,14 +1,24 @@
-﻿using Bread.Repositories.Contracts;
-
+﻿using Bread.Data;
+using Bread.Models;
+using Bread.Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bread.Repositories
 {
-    public class RestaurantRepository : IRestaurantRepository
+    public class RestaurantRepository : BreadRepository, IRestaurantRepository
     {
-        public IEnumerable<string> GetAll()
+        public RestaurantRepository(BreadDbContext dbContext) : base(dbContext)
         {
-            return new List<string> { "yo, yoooo" };
+
+        }        
+
+        public async IEnumerable<string> GetAllAsync()
+        {
+            IQueryable<Restaurant> entities = Context.Restaurants;
+
+            List<Restaurant> result = await entities.ToListAsync();
         }
     }
 }

@@ -1,6 +1,6 @@
 using Autofac;
 
-using Bread.IoC;
+using Bread.DependencyInjection;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +31,7 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();            
+            services.AddControllers();                                 
 
             services.AddSwaggerGen(setupAction =>
             {
@@ -42,6 +42,12 @@ namespace Bread.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            CompositionRoot
+                .RegisterDbContext(
+                    builder, 
+                    Configuration.GetSection("ConnectionString:BreadDb").Value
+                );
+
             CompositionRoot.RegisterModules(builder); 
         }
 

@@ -4,6 +4,6 @@ namespace Bread.Repositories.Contracts
 {
     public interface IRestaurantRepository
     {
-        IEnumerable<string> GetAll();
+        IEnumerable<string> GetAllAsync();
     }
 }

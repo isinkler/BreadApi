@@ -16,7 +16,7 @@ namespace Bread.Services
 
         public IEnumerable<string> GetAll()
         {
-            return restaurantRepository.GetAll();
+            return restaurantRepository.GetAllAsync();
         }
     }
 }
