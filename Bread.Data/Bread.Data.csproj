@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bread.Models\Bread.Models.csproj" />
+    <ProjectReference Include="..\Bread.Models\Bread.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>
