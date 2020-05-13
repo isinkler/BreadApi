@@ -1,10 +1,12 @@
 ﻿using Autofac;
 
 using Bread.Data;
-using Bread.Repositories;
-using Bread.Services;
 
 using Microsoft.EntityFrameworkCore;
+
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Bread.DependencyInjection
 {
@@ -19,12 +21,16 @@ namespace Bread.DependencyInjection
         }
 
         public static void RegisterModules(ContainerBuilder builder)
-        {            
-            builder
-                .RegisterModule<ServiceModule>();
+        {
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            builder
-                .RegisterModule<RepositoryModule>();
+            Assembly[] assemblies =
+                Directory
+                    .GetFiles(path, "Bread*.dll", SearchOption.TopDirectoryOnly)
+                    .Select(Assembly.LoadFrom)
+                    .ToArray();
+
+            builder.RegisterAssemblyModules(assemblies);
         }        
 
         private static DbContextOptions<BreadDbContext> GetDbContextConfiguration(string connectionString)

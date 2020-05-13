@@ -2,6 +2,7 @@
 using Bread.Services.Contracts;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bread.Services
 {
@@ -14,7 +15,7 @@ namespace Bread.Services
             this.restaurantRepository = restaurantRepository;
         }
 
-        public IEnumerable<string> GetAll()
+        public Task<IEnumerable<string>> GetAllAsync()
         {
             return restaurantRepository.GetAllAsync();
         }

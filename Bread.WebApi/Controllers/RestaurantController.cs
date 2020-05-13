@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bread.WebApi.Controllers
 {
@@ -18,9 +19,9 @@ namespace Bread.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> GetAll()
+        public Task<IEnumerable<string>> GetAll()
         {
-            return restaurantService.GetAll();
+            return restaurantService.GetAllAsync();
         }
     }
 }

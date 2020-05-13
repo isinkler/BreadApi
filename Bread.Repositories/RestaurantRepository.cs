@@ -23,7 +23,7 @@ namespace Bread.Repositories
 
             List<Restaurant> result = await entities.ToListAsync();
 
-            
+            return result.Select(r => r.Name);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bread.Services.Contracts
 {
     public interface IRestaurantService
     {
-        IEnumerable<string> GetAll();
+        Task<IEnumerable<string>> GetAllAsync();
     }
 }
