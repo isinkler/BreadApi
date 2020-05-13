@@ -42,7 +42,7 @@ namespace Bread.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            CompositionRoot.RegisterModules(builder);
+            CompositionRoot.RegisterAssemblyModules(builder);
 
             CompositionRoot
                 .RegisterDbContext(

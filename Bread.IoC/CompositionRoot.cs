@@ -4,8 +4,6 @@ using Bread.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace Bread.DependencyInjection
@@ -20,15 +18,9 @@ namespace Bread.DependencyInjection
                 .InstancePerLifetimeScope();
         }
 
-        public static void RegisterModules(ContainerBuilder builder)
+        public static void RegisterAssemblyModules(ContainerBuilder builder)
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            Assembly[] assemblies =
-                Directory
-                    .GetFiles(path, "Bread*.dll", SearchOption.TopDirectoryOnly)
-                    .Select(Assembly.LoadFrom)
-                    .ToArray();
+            Assembly[] assemblies = AssembliesProvider.GetBreadAssemblies();
 
             builder.RegisterAssemblyModules(assemblies);
         }        

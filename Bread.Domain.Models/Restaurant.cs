@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace Bread.Domain.Models
+﻿namespace Bread.Domain.Models
 {
     public class Restaurant
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

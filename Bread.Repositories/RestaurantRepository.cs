@@ -1,5 +1,6 @@
-﻿using Bread.Data;
-using Bread.Models;
+﻿using AutoMapper;
+
+using Bread.Data;
 using Bread.Repositories.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,22 +9,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using BLL = Bread.Domain.Models;
+using DAL = Bread.Data.Models;
+
 namespace Bread.Repositories
 {
     public class RestaurantRepository : BreadRepository, IRestaurantRepository
     {
-        public RestaurantRepository(BreadDbContext dbContext) : base(dbContext)
+        public RestaurantRepository(BreadDbContext dbContext, IMapper mapper) 
+            : base(dbContext, mapper)
         {
 
         }        
 
-        public async Task<IEnumerable<string>> GetAllAsync()
+        public async Task<IEnumerable<BLL.Restaurant>> GetAllAsync()
         {
-            IQueryable<Restaurant> entities = Context.Restaurants;
+            IQueryable<DAL.Restaurant> entityQuery = Context.Restaurants;
 
-            List<Restaurant> result = await entities.ToListAsync();
+            List<DAL.Restaurant> entities = await entityQuery.ToListAsync();
 
-            return result.Select(r => r.Name);
+            IEnumerable<BLL.Restaurant> result = Mapper.Map<IEnumerable<BLL.Restaurant>>(entities);
+
+            return result;
         }
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using DTO = Bread.DataTransfer;
+
 namespace Bread.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -19,7 +21,7 @@ namespace Bread.WebApi.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<string>> GetAll()
+        public Task<IEnumerable<DTO.Restaurant>> GetAll()
         {
             return restaurantService.GetAllAsync();
         }

@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bread.Data\Bread.Data.csproj" />
-    <ProjectReference Include="..\Bread.Repositories\Bread.Repositories.csproj" />
-    <ProjectReference Include="..\Bread.Services\Bread.Services.csproj" />
   </ItemGroup>
 
 </Project>
