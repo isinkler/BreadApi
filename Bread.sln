@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Repositories", "Bread
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F020A5EB-37D6-4843-AA32-1A5FA8C63380}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection", "Bread.IoC\Bread.DependencyInjection.csproj", "{92B9792F-B160-4D10-B5D8-287C915BB2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection", "Bread.DependencyInjection\Bread.DependencyInjection.csproj", "{92B9792F-B160-4D10-B5D8-287C915BB2FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}"
 EndProject

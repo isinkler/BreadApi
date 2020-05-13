@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bread.AutoMapper\Bread.AutoMapper.csproj" />
-    <ProjectReference Include="..\Bread.IoC\Bread.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Bread.DependencyInjection\Bread.DependencyInjection.csproj" />
     <ProjectReference Include="..\Bread.Services\Bread.Services.csproj" />
   </ItemGroup>
 

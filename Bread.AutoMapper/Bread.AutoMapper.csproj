@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bread.IoC\Bread.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Bread.DependencyInjection\Bread.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
