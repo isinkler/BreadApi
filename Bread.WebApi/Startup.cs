@@ -42,13 +42,13 @@ namespace Bread.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            CompositionRoot.RegisterAssemblyModules(builder);
+
             CompositionRoot
                 .RegisterDbContext(
                     builder, 
                     Configuration.GetSection("ConnectionString:BreadDb").Value
-                );
-
-            CompositionRoot.RegisterModules(builder); 
+                );            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,12 +58,22 @@ namespace Bread.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();            
+            ConfigureSwagger(app);
+
+            ConfigureWebApi(app);
+        }        
+
+        private static void ConfigureSwagger(IApplicationBuilder app)
+        {
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bread API V1");
             });
+        }
 
+        private static void ConfigureWebApi(IApplicationBuilder app)
+        {
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

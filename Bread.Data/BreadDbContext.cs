@@ -1,4 +1,4 @@
-﻿using Bread.Models;
+﻿using Bread.Data.Models;
 
 using Microsoft.EntityFrameworkCore;
 

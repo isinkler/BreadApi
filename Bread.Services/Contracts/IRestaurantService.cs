@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using DTO = Bread.DataTransfer;
 
 namespace Bread.Services.Contracts
 {
     public interface IRestaurantService
     {
-        IEnumerable<string> GetAll();
+        Task<IEnumerable<DTO.Restaurant>> GetAllAsync();
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using BLL = Bread.Domain.Models;
 
 namespace Bread.Repositories.Contracts
 {
     public interface IRestaurantRepository
     {
-        IEnumerable<string> GetAllAsync();
+        Task<IEnumerable<BLL.Restaurant>> GetAllAsync();
     }
 }

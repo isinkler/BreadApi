@@ -3,6 +3,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using DTO = Bread.DataTransfer;
 
 namespace Bread.WebApi.Controllers
 {
@@ -18,9 +21,9 @@ namespace Bread.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> GetAll()
+        public Task<IEnumerable<DTO.Restaurant>> GetAll()
         {
-            return restaurantService.GetAll();
+            return restaurantService.GetAllAsync();
         }
     }
 }

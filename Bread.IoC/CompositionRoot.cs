@@ -1,10 +1,10 @@
 ﻿using Autofac;
 
 using Bread.Data;
-using Bread.Repositories;
-using Bread.Services;
 
 using Microsoft.EntityFrameworkCore;
+
+using System.Reflection;
 
 namespace Bread.DependencyInjection
 {
@@ -18,13 +18,11 @@ namespace Bread.DependencyInjection
                 .InstancePerLifetimeScope();
         }
 
-        public static void RegisterModules(ContainerBuilder builder)
-        {            
-            builder
-                .RegisterModule<ServiceModule>();
+        public static void RegisterAssemblyModules(ContainerBuilder builder)
+        {
+            Assembly[] assemblies = AssembliesProvider.GetBreadAssemblies();
 
-            builder
-                .RegisterModule<RepositoryModule>();
+            builder.RegisterAssemblyModules(assemblies);
         }        
 
         private static DbContextOptions<BreadDbContext> GetDbContextConfiguration(string connectionString)

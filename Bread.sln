@@ -21,11 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Data.Models", "Bread.Models\Bread.Data.Models.csproj", "{480C1889-7BD6-41BD-B682-D8CC8F907D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Data.Models", "Bread.Models\Bread.Data.Models.csproj", "{480C1889-7BD6-41BD-B682-D8CC8F907D41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Domain.Models", "Bread.Domain.Models\Bread.Domain.Models.csproj", "{499CFCC1-F3EF-4070-9735-22ED73F11A1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Domain.Models", "Bread.Domain.Models\Bread.Domain.Models.csproj", "{499CFCC1-F3EF-4070-9735-22ED73F11A1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.DataTransfer", "Bread.DataTransfer\Bread.DataTransfer.csproj", "{23952451-87F5-4791-9D31-088AA045D2CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DataTransfer", "Bread.DataTransfer\Bread.DataTransfer.csproj", "{23952451-87F5-4791-9D31-088AA045D2CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Common", "Bread.Common\Bread.Common.csproj", "{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.AutoMapper", "Bread.AutoMapper\Bread.AutoMapper.csproj", "{DEDDFB44-9119-45D0-9C61-A495E6254568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,14 @@ Global
 		{23952451-87F5-4791-9D31-088AA045D2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23952451-87F5-4791-9D31-088AA045D2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23952451-87F5-4791-9D31-088AA045D2CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDDFB44-9119-45D0-9C61-A495E6254568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDDFB44-9119-45D0-9C61-A495E6254568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDDFB44-9119-45D0-9C61-A495E6254568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDDFB44-9119-45D0-9C61-A495E6254568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +90,8 @@ Global
 		{480C1889-7BD6-41BD-B682-D8CC8F907D41} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 		{499CFCC1-F3EF-4070-9735-22ED73F11A1F} = {C20DD53E-D91D-46EB-B368-A95EF3342148}
 		{23952451-87F5-4791-9D31-088AA045D2CB} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
+		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
+		{DEDDFB44-9119-45D0-9C61-A495E6254568} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E77E917D-DA77-4BF9-B61F-FBC4E1DCC6CB}

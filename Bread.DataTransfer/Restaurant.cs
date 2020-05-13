@@ -1,8 +1,9 @@
-﻿using System;
-
-namespace Bread.DataTransfer
+﻿namespace Bread.DataTransfer
 {
     public class Restaurant
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
