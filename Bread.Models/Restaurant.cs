@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bread.Data.Models
 {
@@ -8,5 +9,11 @@ namespace Bread.Data.Models
 
         [Required]
         public string Name { get; set; }
+
+        public int PriceCategory { get; set; }
+
+        public TimeSpan OpenFrom { get; set; }
+
+        public TimeSpan OpenTo { get; set; }
     }
 }
