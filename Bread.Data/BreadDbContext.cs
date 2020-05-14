@@ -6,6 +6,11 @@ namespace Bread.Data
 {
     public class BreadDbContext : DbContext
     {
+        // Add migration:
+        // dotnet ef -s .\Bread.WebApi -p .\Bread.Data -v migrations add **migration-name**
+
+        // Update database:
+        // dotnet ef -s .\Bread.WebApi -p .\Bread.Data -v database update
         public BreadDbContext()
         {
 
@@ -16,8 +21,6 @@ namespace Bread.Data
             optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=BreadDb;Integrated Security=True;MultipleActiveResultSets=true;");
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
-
-        public DbSet<User> Users { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }        
     }
 }
