@@ -13,5 +13,11 @@ namespace Bread.Data.Models
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
+
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+
+        [Phone]
+        public string Phone { get; set; }
     }
 }

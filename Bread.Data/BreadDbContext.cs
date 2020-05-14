@@ -21,6 +21,8 @@ namespace Bread.Data
             optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=BreadDb;Integrated Security=True;MultipleActiveResultSets=true;");
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }        
+        public DbSet<Restaurant> Restaurants { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
