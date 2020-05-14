@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bread.Data.Models
 {
@@ -19,5 +20,7 @@ namespace Bread.Data.Models
 
         [Phone]
         public string Phone { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }
