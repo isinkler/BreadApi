@@ -1,9 +1,11 @@
 using Autofac;
 
+using Bread.Data;
 using Bread.DependencyInjection;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +33,13 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();                                 
+            services.AddControllers();
+
+            services
+                .AddDbContext<BreadDbContext>(
+                    options => 
+                        options.UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
+                );
 
             services.AddSwaggerGen(setupAction =>
             {
@@ -42,13 +50,7 @@ namespace Bread.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            CompositionRoot.RegisterAssemblyModules(builder);
-
-            CompositionRoot
-                .RegisterDbContext(
-                    builder, 
-                    Configuration.GetSection("ConnectionString:BreadDb").Value
-                );            
+            CompositionRoot.RegisterAssemblyModules(builder);                      
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

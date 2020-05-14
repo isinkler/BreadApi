@@ -39,7 +39,7 @@ namespace Bread.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Bread.Data.Models.Product", b =>
