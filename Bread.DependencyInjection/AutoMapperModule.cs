@@ -2,13 +2,11 @@
 
 using AutoMapper;
 
-using Bread.DependencyInjection;
-
 using System.Reflection;
 
 using Module = Autofac.Module;
 
-namespace Bread.AutoMapper
+namespace Bread.DependencyInjection
 {
     public class AutoMapperModule : Module
     {
