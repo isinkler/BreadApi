@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.DependencyInjection",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8DF9CE6A-CDE8-4711-869B-EFD38C0EDA12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Data.Models", "Bread.Models\Bread.Data.Models.csproj", "{480C1889-7BD6-41BD-B682-D8CC8F907D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Data.Models", "Bread.Data.Models\Bread.Data.Models.csproj", "{480C1889-7BD6-41BD-B682-D8CC8F907D41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Domain.Models", "Bread.Domain.Models\Bread.Domain.Models.csproj", "{499CFCC1-F3EF-4070-9735-22ED73F11A1F}"
 EndProject

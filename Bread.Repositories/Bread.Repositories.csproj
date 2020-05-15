@@ -13,7 +13,7 @@
     <ProjectReference Include="..\Bread.Common\Bread.Common.csproj" />
     <ProjectReference Include="..\Bread.Data\Bread.Data.csproj" />
     <ProjectReference Include="..\Bread.Domain.Models\Bread.Domain.Models.csproj" />
-    <ProjectReference Include="..\Bread.Models\Bread.Data.Models.csproj" />
+    <ProjectReference Include="..\Bread.Data.Models\Bread.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>
