@@ -1,6 +1,6 @@
 ﻿namespace Bread.Security.Contracts
 {
-    interface IPasswordHasher
+    public interface IPasswordHasher
     {
         string Hash(string password);
 

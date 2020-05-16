@@ -34,8 +34,9 @@ namespace Bread.Security
 
             if (parts.Length != 3)
             {
-                throw new FormatException("Unexpected hash format. " +
-                  "Should be formatted as `{iterations}.{salt}.{hash}`");
+                throw new FormatException(
+                    "Unexpected hash format. Should be formatted as `{iterations}.{salt}.{hash}`"
+                );
             }
 
             var iterations = Convert.ToInt32(parts[0]);

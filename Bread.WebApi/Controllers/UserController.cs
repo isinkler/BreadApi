@@ -1,7 +1,9 @@
 ﻿using Bread.DataTransfer;
 using Bread.Services.Contracts;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using System.Threading.Tasks;
 
 namespace Bread.WebApi.Controllers
@@ -19,12 +21,21 @@ namespace Bread.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> AuthenticateAsync([FromBody] Authentication authentication)
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] Authentication authentication)
         {
-            User user = await userService.AuthenticateAsync(authentication);
+            User user = await userService.LoginAsync(authentication);
 
             return Ok(user);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] User user)
+        {
+            var result = await userService.RegisterAsync(user);
+
+            return Ok(result);
         }
     }
 }

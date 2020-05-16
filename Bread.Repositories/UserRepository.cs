@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+
 using Bread.Common.Extensions;
 using Bread.Data;
 using Bread.Domain.Models;
 using Bread.Repositories.Contracts;
+
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Threading.Tasks;
 
@@ -18,12 +21,33 @@ namespace Bread.Repositories
         {
         }
 
-        public Task<User> GetByEmailAndPasswordAsync(string emailAddress, string password)
+        public Task<User> GetAsync(int id)
         {
-            emailAddress.ThrowIfNull(nameof(emailAddress));
-            password.ThrowIfNull(nameof(password));
+            throw new NotImplementedException();
+        }
 
-            return null;
+        public async Task<BLL.User> GetByEmailAsync(string emailAddress)
+        {
+            emailAddress.ThrowIfNull(nameof(emailAddress));            
+
+            DAL.User dalUser = 
+                await Context.Users.SingleOrDefaultAsync(user => user.EmailAddress == emailAddress);
+
+            User result = Mapper.Map<BLL.User>(dalUser);
+
+            return result;
+        }
+
+        public async Task<BLL.User> CreateAsync(BLL.User user)
+        {
+            DAL.User dalUser = Mapper.Map<DAL.User>(user);
+
+            Context.Users.Add(dalUser);
+            await Context.SaveChangesAsync();
+
+            User result = Mapper.Map<BLL.User>(dalUser);
+
+            return result;
         }
     }
 }
