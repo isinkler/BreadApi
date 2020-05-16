@@ -8,7 +8,7 @@ namespace Bread.Services.Contracts
 {
     public interface IUserService
     {
-        Task<DTO.User> LoginAsync(Authentication authentication);
+        Task<string> LoginAsync(Authentication authentication);
 
         Task<DTO.User> RegisterAsync(DTO.User user);        
     }
