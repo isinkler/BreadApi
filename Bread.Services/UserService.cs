@@ -49,9 +49,9 @@ namespace Bread.Services
                 throw new AuthenticationException("Email address not found!");
             }
 
-            var (verified, needsUpgrade) = passwordHasher.Check(bllUser.Password, authentication.Password);
+            var (passwordVerified, needsUpgrade) = passwordHasher.Check(bllUser.Password, authentication.Password);
 
-            if (verified)
+            if (passwordVerified)
             {
                 return GenerateJsonWebToken(bllUser);    
             }
@@ -76,17 +76,17 @@ namespace Bread.Services
         private string GenerateJsonWebToken(BLL.User user)
         {
             SymmetricSecurityKey securityKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityOptions.Jwt.SecretKey));
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityOptions.Jwt.SecretKey));
 
             SigningCredentials signingCredentials =
                 new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.LastName),
-                    new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                };
+                new Claim(JwtRegisteredClaimNames.Sub, user.LastName),
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
 
             JwtSecurityToken token =
                 new JwtSecurityToken(
