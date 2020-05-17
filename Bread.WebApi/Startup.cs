@@ -1,15 +1,22 @@
 using Autofac;
 
+using Bread.Common.Options;
 using Bread.Data;
 using Bread.DependencyInjection;
+using Bread.Security;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+using System;
+using System.Text;
 
 namespace Bread.WebApi
 {
@@ -37,9 +44,21 @@ namespace Bread.WebApi
 
             services
                 .AddDbContext<BreadDbContext>(
-                    options => 
+                    options =>
                         options.UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
                 );
+
+            ConfigureJsonWebToken(services);
+
+            services
+                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
+
+            services
+                .AddAuthorization(config =>
+                {
+                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                    config.AddPolicy(Policies.User, Policies.UserPolicy());
+                });
 
             services.AddSwaggerGen(setupAction =>
             {
@@ -48,9 +67,35 @@ namespace Bread.WebApi
             });
         }
 
+        private void ConfigureJsonWebToken(IServiceCollection services)
+        {
+            JwtOptions jwtOptions = Configuration.GetSection("Security:Jwt").Get<JwtOptions>();
+
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = tokenValidationParameters;
+                });
+        }
+
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            CompositionRoot.RegisterAssemblyModules(builder);                      
+            CompositionRoot.RegisterAssemblyModules(builder);                       
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -77,7 +122,10 @@ namespace Bread.WebApi
         private static void ConfigureWebApi(IApplicationBuilder app)
         {
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

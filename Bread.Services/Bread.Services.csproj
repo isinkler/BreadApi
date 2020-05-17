@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bread.DataTransfer\Bread.DataTransfer.csproj" />
     <ProjectReference Include="..\Bread.Repositories\Bread.Repositories.csproj" />
+    <ProjectReference Include="..\Bread.Security\Bread.Security.csproj" />
   </ItemGroup>
 
 </Project>

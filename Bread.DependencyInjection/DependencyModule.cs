@@ -2,17 +2,20 @@
 
 using AutoMapper;
 
-using Bread.DependencyInjection;
-
 using System.Reflection;
 
 using Module = Autofac.Module;
 
-namespace Bread.AutoMapper
+namespace Bread.DependencyInjection
 {
-    public class AutoMapperModule : Module
+    public class DependencyModule : Module
     {
         protected override void Load(ContainerBuilder builder)
+        {
+            RegisterAutoMapper(builder);
+        }
+
+        private static void RegisterAutoMapper(ContainerBuilder builder)
         {
             Assembly[] assemblies = AssembliesProvider.GetBreadAssemblies();
 

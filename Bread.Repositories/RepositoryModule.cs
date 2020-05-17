@@ -12,6 +12,11 @@ namespace Bread.Repositories
                 .RegisterType<RestaurantRepository>()
                 .As<IRestaurantRepository>()
                 .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<UserRepository>()
+                .As<IUserRepository>()
+                .InstancePerLifetimeScope();
         }
     }
 }
