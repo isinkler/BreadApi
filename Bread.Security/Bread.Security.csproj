@@ -6,14 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.4" />
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Bread.Common\Bread.Common.csproj" />
-    <ProjectReference Include="..\Bread.Data\Bread.Data.csproj" />
-    <ProjectReference Include="..\Bread.Domain.Models\Bread.Domain.Models.csproj" />
-    <ProjectReference Include="..\Bread.Data.Models\Bread.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

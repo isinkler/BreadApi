@@ -12,6 +12,11 @@ namespace Bread.Services
                 .RegisterType<RestaurantService>()
                 .As<IRestaurantService>()
                 .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<UserService>()
+                .As<IUserService>()
+                .InstancePerLifetimeScope();
         }
     }
 }

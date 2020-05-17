@@ -15,7 +15,7 @@ namespace Bread.Services
     {
         private readonly IRestaurantRepository restaurantRepository;
 
-        public RestaurantService(IMapper mapper, IRestaurantRepository restaurantRepository)
+        public RestaurantService(IRestaurantRepository restaurantRepository, IMapper mapper)
             :base(mapper)
         {
             this.restaurantRepository = restaurantRepository;
