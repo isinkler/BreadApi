@@ -1,4 +1,7 @@
-﻿using Bread.Security.Contracts;
+﻿using Bread.Common.Options;
+using Bread.Security.Contracts;
+
+using Microsoft.Extensions.Options;
 
 using System;
 using System.Linq;
@@ -8,24 +11,27 @@ namespace Bread.Security
 {
     public class PasswordHasher : IPasswordHasher
     {
-        private const int SaltSize = 16; // 128 bit 
-        private const int KeySize = 32; // 256 bit
-        private const int Iterations = 10000;
+        private readonly PasswordOptions options;
+
+        public PasswordHasher(IOptions<SecurityOptions> securityOptions)
+        {
+            options = securityOptions.Value.Password;
+        }
             
         public string Hash(string password)
         {
             using var algorithm = 
                 new Rfc2898DeriveBytes(
                     password,
-                    SaltSize,
-                    Iterations,
+                    options.SaltSize,
+                    options.Iterations,
                     HashAlgorithmName.SHA512
                 );
 
-            var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
+            var key = Convert.ToBase64String(algorithm.GetBytes(options.KeySize));
             var salt = Convert.ToBase64String(algorithm.Salt);
 
-            return $"{Iterations}.{salt}.{key}";
+            return $"{options.Iterations}.{salt}.{key}";
         }
 
         public (bool Verified, bool NeedsUpgrade) Check(string hash, string password)
@@ -43,7 +49,7 @@ namespace Bread.Security
             var salt = Convert.FromBase64String(parts[1]);
             var key = Convert.FromBase64String(parts[2]);
 
-            var needsUpgrade = iterations != Iterations;
+            var needsUpgrade = iterations != options.Iterations;
 
             using var algorithm = 
                 new Rfc2898DeriveBytes(
@@ -53,7 +59,7 @@ namespace Bread.Security
                     HashAlgorithmName.SHA512
                 );
 
-            var keyToCheck = algorithm.GetBytes(KeySize);
+            var keyToCheck = algorithm.GetBytes(options.KeySize);
             var verified = keyToCheck.SequenceEqual(key);
 
             return (verified, needsUpgrade);
