@@ -69,16 +69,17 @@ namespace Bread.WebApi
 
         private void ConfigureJsonWebToken(IServiceCollection services)
         {
+            JwtOptions jwtOptions = Configuration.GetSection("Security:Jwt").Get<JwtOptions>();
+
             var tokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = Configuration["Security:Jwt:Issuer"],
-                ValidAudience = Configuration["Security:Jwt:Audience"],
-                IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Security:Jwt:SecretKey"])),
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
                 ClockSkew = TimeSpan.Zero
             };
 
