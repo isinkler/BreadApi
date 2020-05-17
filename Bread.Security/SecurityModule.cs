@@ -1,4 +1,5 @@
 ﻿using Autofac;
+
 using Bread.Security.Contracts;
 
 namespace Bread.Security
@@ -10,6 +11,11 @@ namespace Bread.Security
             builder
                 .RegisterType<PasswordHasher>()
                 .As<IPasswordHasher>()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<JsonWebTokenGenerator>()
+                .As<IJsonWebTokenGenerator>()
                 .InstancePerLifetimeScope();
         }
     }
