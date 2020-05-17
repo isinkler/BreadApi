@@ -15,9 +15,9 @@ namespace Bread.Security
     {
         private readonly JwtOptions options;
 
-        public JsonWebTokenGenerator(IOptions<SecurityOptions> options)
+        public JsonWebTokenGenerator(IOptions<SecurityOptions> securityOptions)
         {
-            this.options = options.Value.Jwt;
+            options = securityOptions.Value.Jwt;
         }
 
         public string GenerateJsonWebToken(int id, string lastName)
