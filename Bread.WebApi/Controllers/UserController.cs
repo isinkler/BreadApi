@@ -26,7 +26,7 @@ namespace Bread.WebApi.Controllers
         {
             string token = await userService.LoginAsync(authentication);
 
-            return Ok(token);
+            return Ok(new { token });
         }
 
         [AllowAnonymous]

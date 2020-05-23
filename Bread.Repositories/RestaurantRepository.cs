@@ -32,5 +32,17 @@ namespace Bread.Repositories
 
             return result;
         }
+
+        public async Task<BLL.Restaurant> CreateAsync(BLL.Restaurant restaurant)
+        {
+            var dalRestaurant = Mapper.Map<DAL.Restaurant>(restaurant);
+
+            await Context.Restaurants.AddAsync(dalRestaurant);
+            await Context.SaveChangesAsync();
+
+            restaurant = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+
+            return restaurant;
+        }
     }
 }

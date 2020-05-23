@@ -22,9 +22,15 @@ namespace Bread.WebApi.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<DTO.Restaurant>> GetAll()
+        public async Task<IEnumerable<DTO.Restaurant>> GetAll()
         {
-            return restaurantService.GetAllAsync();
+            return await restaurantService.GetAllAsync();
+        }
+
+        [HttpPost]
+        public async Task<DTO.Restaurant> CreateAsync([FromBody] DTO.Restaurant restaurant)
+        {
+            return await restaurantService.CreateAsync(restaurant);
         }
     }
 }

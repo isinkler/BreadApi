@@ -42,29 +42,25 @@ namespace Bread.WebApi
         {
             services.AddControllers();
 
-            services
-                .AddDbContext<BreadDbContext>(
-                    options =>
-                        options.UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
-                );
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            ConfigureDbContext(services);
 
             ConfigureJsonWebToken(services);
 
-            services
-                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
+            ConfigureSecurityOptions(services);
 
-            services
-                .AddAuthorization(config =>
-                {
-                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                    config.AddPolicy(Policies.User, Policies.UserPolicy());
-                });
+            ConfigureSwagger(services);
+        }        
 
-            services.AddSwaggerGen(setupAction =>
-            {
-                setupAction
-                    .SwaggerDoc("v1", new OpenApiInfo { Title = "Bread API", Version = "v1" });
-            });
+        private void ConfigureDbContext(IServiceCollection services)
+        {
+            services
+                .AddDbContext<BreadDbContext>(
+                    options =>
+                        options
+                            .UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
+                );
         }
 
         private void ConfigureJsonWebToken(IServiceCollection services)
@@ -91,6 +87,28 @@ namespace Bread.WebApi
                     options.SaveToken = true;
                     options.TokenValidationParameters = tokenValidationParameters;
                 });
+        }
+
+        private void ConfigureSecurityOptions(IServiceCollection services)
+        {
+            services
+                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
+
+            services
+                .AddAuthorization(config =>
+                {
+                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                    config.AddPolicy(Policies.User, Policies.UserPolicy());
+                });
+        }
+
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction
+                    .SwaggerDoc("v1", new OpenApiInfo { Title = "Bread API", Version = "v1" });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

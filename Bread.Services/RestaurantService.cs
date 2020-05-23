@@ -29,5 +29,16 @@ namespace Bread.Services
 
             return result;
         }
+
+        public async Task<DTO.Restaurant> CreateAsync(DTO.Restaurant restaurant)
+        {
+            var bllRestaurant = Mapper.Map<BLL.Restaurant>(restaurant);
+
+            bllRestaurant = await restaurantRepository.CreateAsync(bllRestaurant);
+
+            restaurant = Mapper.Map<DTO.Restaurant>(bllRestaurant);
+
+            return restaurant;
+        }
     }
 }

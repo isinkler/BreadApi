@@ -8,5 +8,7 @@ namespace Bread.Repositories.Contracts
     public interface IRestaurantRepository
     {
         Task<IEnumerable<BLL.Restaurant>> GetAllAsync();
+
+        Task<BLL.Restaurant> CreateAsync(BLL.Restaurant restaurant);
     }
 }
