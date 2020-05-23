@@ -4,6 +4,6 @@ namespace Bread.FileSystem.Contracts
 {
     public interface IUploadsHandler
     {             
-        Task<string> PersistAsync(IFormFile);
+        Task<string> PersistAsync(byte[] bytes);
     }
 }

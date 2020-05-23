@@ -1,4 +1,5 @@
-﻿using Bread.Services.Contracts;
+﻿using Bread.Common.Extensions;
+using Bread.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,11 @@ namespace Bread.WebApi.Controllers
 
         [HttpPost]
         [Route("update-banner")]
-        public async Task<DTO.Restaurant> UpdateBannerAsync(IFormFile banner)
-        {            
-            return await restaurantService.UpdateBannerAsync(banner);
+        public async Task<string> UpdateBannerAsync(IFormFile file)
+        {
+            byte[] bytes = await file.GetBytesAsync();
+
+            return await restaurantService.UpdateBannerAsync(bytes);
         }
     }
 }

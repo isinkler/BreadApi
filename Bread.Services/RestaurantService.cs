@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using Bread.DataTransfer;
+
+using Bread.FileSystem.Contracts;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
-using Microsoft.AspNetCore.Http;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,15 +15,17 @@ namespace Bread.Services
     public class RestaurantService : BreadService, IRestaurantService
     {
         private readonly IRestaurantRepository restaurantRepository;
+        private readonly IUploadsHandler uploadsHandler;
 
         public RestaurantService(
             IRestaurantRepository restaurantRepository, 
-
+            IUploadsHandler uploadsHandler,
             IMapper mapper
         )
             :base(mapper)
         {
             this.restaurantRepository = restaurantRepository;
+            this.uploadsHandler = uploadsHandler;
         }
 
         public async Task<IEnumerable<DTO.Restaurant>> GetAllAsync()
@@ -45,9 +48,11 @@ namespace Bread.Services
             return restaurant;
         }
 
-        public Task<Restaurant> UpdateBannerAsync(IFormFile banner)
+        public async Task<string> UpdateBannerAsync(byte[] bytes)
         {
-            return null;
+            string bannerPath = await uploadsHandler.PersistAsync(bytes);
+
+            return bannerPath;
         }
     }
 }

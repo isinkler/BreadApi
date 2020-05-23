@@ -18,16 +18,14 @@ namespace Bread.FileSystem
             this.options = options.Value;
         }
 
-        public async Task<string> PersistAsync(byte[] file)
+        public async Task<string> PersistAsync(byte[] bytes)
         {
             string fileName = Guid.NewGuid().ToString();
+            string path = options.UploadsPath + fileName;
 
-            using (var fileStream = new FileStream(options.UploadsPath, FileMode.Create))
-            {
-                await file.CopyToAsync(fileStream);
-            }
+            await File.WriteAllBytesAsync(path, bytes);
 
-            return null;
+            return path;
         }
     }
 }
