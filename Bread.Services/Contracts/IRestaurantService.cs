@@ -1,5 +1,7 @@
 ﻿using Bread.DataTransfer;
 
+using Microsoft.AspNetCore.Http;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,5 +14,7 @@ namespace Bread.Services.Contracts
         Task<IEnumerable<DTO.Restaurant>> GetAllAsync();
 
         Task<Restaurant> CreateAsync(Restaurant restaurant);
+
+        Task<Restaurant> UpdateBannerAsync(IFormFile restaurantBanner);
     }
 }

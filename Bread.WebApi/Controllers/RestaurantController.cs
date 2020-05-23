@@ -1,5 +1,6 @@
 ﻿using Bread.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
@@ -27,10 +28,17 @@ namespace Bread.WebApi.Controllers
             return await restaurantService.GetAllAsync();
         }
 
-        [HttpPost]
+        [HttpPost]       
         public async Task<DTO.Restaurant> CreateAsync([FromBody] DTO.Restaurant restaurant)
         {
             return await restaurantService.CreateAsync(restaurant);
+        }
+
+        [HttpPost]
+        [Route("update-banner")]
+        public async Task<DTO.Restaurant> UpdateBannerAsync(IFormFile banner)
+        {            
+            return await restaurantService.UpdateBannerAsync(banner);
         }
     }
 }

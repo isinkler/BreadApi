@@ -48,7 +48,7 @@ namespace Bread.WebApi
 
             ConfigureJsonWebToken(services);
 
-            ConfigureSecurityOptions(services);
+            ConfigureOptions(services);
 
             ConfigureSwagger(services);
         }        
@@ -87,12 +87,6 @@ namespace Bread.WebApi
                     options.SaveToken = true;
                     options.TokenValidationParameters = tokenValidationParameters;
                 });
-        }
-
-        private void ConfigureSecurityOptions(IServiceCollection services)
-        {
-            services
-                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
 
             services
                 .AddAuthorization(config =>
@@ -100,6 +94,15 @@ namespace Bread.WebApi
                     config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
                     config.AddPolicy(Policies.User, Policies.UserPolicy());
                 });
+        }
+
+        private void ConfigureOptions(IServiceCollection services)
+        {
+            services
+                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
+
+            services
+                .Configure<StorageOptions>(config => Configuration.GetSection("Storage").Bind(config));
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
