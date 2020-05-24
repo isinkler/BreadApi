@@ -8,6 +8,7 @@ using Bread.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +41,10 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            });
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -149,7 +153,7 @@ namespace Bread.WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();                
             });
         }
     }

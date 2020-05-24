@@ -1,5 +1,6 @@
 ﻿using Bread.Common.Extensions;
 using Bread.Services.Contracts;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,11 @@ namespace Bread.WebApi.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantController : ControllerBase
+    public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantService restaurantService;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantsController(IRestaurantService restaurantService)
         {
             this.restaurantService = restaurantService;
         }
@@ -35,13 +36,12 @@ namespace Bread.WebApi.Controllers
             return await restaurantService.CreateAsync(restaurant);
         }
 
-        [HttpPost]
-        [Route("update-banner")]
-        public async Task<string> UpdateBannerAsync(IFormFile file)
+        [HttpPatch("{id}/update-banner")]        
+        public async Task<string> UpdateBannerAsync(int id, IFormFile file)
         {
             byte[] bytes = await file.GetBytesAsync();
 
-            return await restaurantService.UpdateBannerAsync(bytes);
+            return await restaurantService.UpdateBannerAsync(id, bytes);
         }
     }
 }

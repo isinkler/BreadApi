@@ -19,16 +19,24 @@ namespace Bread.Repositories
         public RestaurantRepository(BreadDbContext dbContext, IMapper mapper) 
             : base(dbContext, mapper)
         {
+        }
 
-        }        
+        public async Task<BLL.Restaurant> GetAsync(int id)
+        {
+            DAL.Restaurant dalRestaurant = await Context.Restaurants.SingleOrDefaultAsync(restaurant => restaurant.Id == id);
+
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+
+            return result;
+        }
 
         public async Task<IEnumerable<BLL.Restaurant>> GetAllAsync()
         {
-            IQueryable<DAL.Restaurant> entityQuery = Context.Restaurants;
+            IQueryable<DAL.Restaurant> entitiesQuery = Context.Restaurants;
 
-            List<DAL.Restaurant> entities = await entityQuery.ToListAsync();
+            List<DAL.Restaurant> entities = await entitiesQuery.ToListAsync();
 
-            IEnumerable<BLL.Restaurant> result = Mapper.Map<IEnumerable<BLL.Restaurant>>(entities);
+            var result = Mapper.Map<IEnumerable<BLL.Restaurant>>(entities);
 
             return result;
         }
@@ -43,6 +51,6 @@ namespace Bread.Repositories
             restaurant = Mapper.Map<BLL.Restaurant>(dalRestaurant);
 
             return restaurant;
-        }
+        }        
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Bread.DataTransfer;
 using Bread.FileSystem.Contracts;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
@@ -28,6 +28,15 @@ namespace Bread.Services
             this.uploadsHandler = uploadsHandler;
         }
 
+        public async Task<Restaurant> GetAsync(int id)
+        {
+            BLL.Restaurant restaurant = await restaurantRepository.GetAsync(id);
+
+            var result = Mapper.Map<DTO.Restaurant>(restaurant);
+
+            return result;
+        }
+
         public async Task<IEnumerable<DTO.Restaurant>> GetAllAsync()
         {
             IEnumerable<BLL.Restaurant> restaurants = await restaurantRepository.GetAllAsync();
@@ -48,11 +57,20 @@ namespace Bread.Services
             return restaurant;
         }
 
-        public async Task<string> UpdateBannerAsync(byte[] bytes)
+        public Task<Restaurant> UpdateAsync(Restaurant restaurant)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<string> UpdateBannerAsync(int id, byte[] bytes)
         {
             string bannerPath = await uploadsHandler.PersistAsync(bytes);
 
+            BLL.Restaurant restaurant = await restaurantRepository.GetAsync(id);
+
+            restaurant.
+
             return bannerPath;
-        }
+        }        
     }
 }
