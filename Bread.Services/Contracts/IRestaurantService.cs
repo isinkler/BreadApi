@@ -17,6 +17,6 @@ namespace Bread.Services.Contracts
 
         Task<Restaurant> UpdateAsync(Restaurant restaurant);
 
-        Task<string> UpdateBannerAsync(int id, byte[] restaurantBanner);
+        Task CreateBannerAsync(int id, byte[] restaurantBanner);
     }
 }

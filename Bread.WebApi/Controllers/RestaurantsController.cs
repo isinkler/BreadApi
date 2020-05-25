@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using DTO = Bread.DataTransfer;
@@ -17,31 +16,37 @@ namespace Bread.WebApi.Controllers
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
-        private readonly IRestaurantService restaurantService;
+        private readonly IRestaurantService restaurantService;        
 
         public RestaurantsController(IRestaurantService restaurantService)
         {
-            this.restaurantService = restaurantService;
+            this.restaurantService = restaurantService;            
         }
 
         [HttpGet]
-        public async Task<IEnumerable<DTO.Restaurant>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return await restaurantService.GetAllAsync();
+            var result = await restaurantService.GetAllAsync();
+
+            return Ok(result);
         }
 
         [HttpPost]       
-        public async Task<DTO.Restaurant> CreateAsync([FromBody] DTO.Restaurant restaurant)
+        public async Task<IActionResult> CreateAsync([FromBody] DTO.Restaurant restaurant)
         {
-            return await restaurantService.CreateAsync(restaurant);
+            var result = await restaurantService.CreateAsync(restaurant);
+
+            return Ok(result);
         }
 
-        [HttpPatch("{id}/update-banner")]        
-        public async Task<string> UpdateBannerAsync(int id, IFormFile file)
+        [HttpPost("{id}/banner")]                
+        public async Task<IActionResult> CreateBannerAsync(int id, IFormFile file)
         {
-            byte[] bytes = await file.GetBytesAsync();
+            byte[] bytes = await file.GetBytesAsync();            
 
-            return await restaurantService.UpdateBannerAsync(id, bytes);
+            await restaurantService.CreateBannerAsync(id, bytes);
+
+            return Ok();
         }
     }
 }

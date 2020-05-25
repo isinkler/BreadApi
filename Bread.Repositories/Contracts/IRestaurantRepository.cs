@@ -14,5 +14,7 @@ namespace Bread.Repositories.Contracts
         Task<IEnumerable<BLL.Restaurant>> GetAllAsync();
 
         Task<BLL.Restaurant> CreateAsync(BLL.Restaurant restaurant);
+
+        Task<BLL.Restaurant> UpdateAsync(Restaurant restaurant);
     }
 }

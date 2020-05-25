@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using Bread.Common.Extensions;
 using Bread.Data;
 using Bread.Repositories.Contracts;
 
@@ -23,7 +24,8 @@ namespace Bread.Repositories
 
         public async Task<BLL.Restaurant> GetAsync(int id)
         {
-            DAL.Restaurant dalRestaurant = await Context.Restaurants.SingleOrDefaultAsync(restaurant => restaurant.Id == id);
+            DAL.Restaurant dalRestaurant = 
+                await Context.Restaurants.SingleOrDefaultAsync(entity => entity.Id == id);
 
             var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
 
@@ -48,9 +50,26 @@ namespace Bread.Repositories
             await Context.Restaurants.AddAsync(dalRestaurant);
             await Context.SaveChangesAsync();
 
-            restaurant = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
 
-            return restaurant;
-        }        
+            return result;
+        }
+
+        public async Task<BLL.Restaurant> UpdateAsync(BLL.Restaurant restaurant)
+        {
+            DAL.Restaurant dalRestaurant = 
+                await Context.Restaurants.SingleOrDefaultAsync(entity => entity.Id == restaurant.Id);
+
+            dalRestaurant.ThrowIfNull(nameof(dalRestaurant));
+
+            Mapper.Map(dalRestaurant, restaurant);
+
+            Context.Update(dalRestaurant);
+            await Context.SaveChangesAsync();
+
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+
+            return result;
+        }
     }
 }
