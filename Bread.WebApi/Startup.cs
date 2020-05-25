@@ -175,7 +175,7 @@ namespace Bread.WebApi
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(storageOptions.RestaurantUploadsPath),
-                RequestPath = "/images/restaurant"
+                RequestPath = "/images/restaurant"                
             });
 
             app.UseStaticFiles(new StaticFileOptions()

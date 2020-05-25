@@ -39,6 +39,16 @@ namespace Bread.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}/banner")]
+        public async Task<IActionResult> GetBannerAsync(int id)
+        {
+            string path = await restaurantService.GetBannerAsync(id);
+
+            var image = System.IO.File.OpenRead(path);
+
+            return File(image, "image/jpg");
+        }
+
         [HttpPost("{id}/banner")]                
         public async Task<IActionResult> CreateBannerAsync(int id, IFormFile file)
         {

@@ -16,7 +16,7 @@ namespace Bread.FileSystem
 
             await File.WriteAllBytesAsync(path, bytes);
 
-            return path;
+            return fileName;
         }
     }
 }

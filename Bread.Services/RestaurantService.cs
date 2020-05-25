@@ -6,9 +6,11 @@ using Bread.FileSystem.Contracts;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 using BLL = Bread.Domain.Models;
@@ -19,19 +21,19 @@ namespace Bread.Services
     public class RestaurantService : BreadService, IRestaurantService
     {
         private readonly IRestaurantRepository restaurantRepository;
-        private readonly IUploadsHandler uploadsHandler;
+        private readonly IUploadsHandler uploadsHandler;        
         private readonly StorageOptions storageOptions;
 
         public RestaurantService(
             IRestaurantRepository restaurantRepository, 
             IUploadsHandler uploadsHandler,
-            IOptions<StorageOptions> options,
+            IOptions<StorageOptions> options,            
             IMapper mapper
         )
             :base(mapper)
         {
             this.restaurantRepository = restaurantRepository;
-            this.uploadsHandler = uploadsHandler;
+            this.uploadsHandler = uploadsHandler;            
             this.storageOptions = options.Value;
         }
 
@@ -48,7 +50,12 @@ namespace Bread.Services
         {
             IEnumerable<BLL.Restaurant> restaurants = await restaurantRepository.GetAllAsync();
 
-            var result = Mapper.Map<IEnumerable<DTO.Restaurant>>(restaurants);
+            IEnumerable<Restaurant> result = Mapper.Map<IEnumerable<DTO.Restaurant>>(restaurants);
+
+            foreach(var restaurant in result)
+            {
+                restaurant.BannerPath = (restaurant.BannerPath != null ? Path.Combine(storageOptions.RestaurantUploadsPath, restaurant.BannerPath) : null);
+            }
 
             return result;
         }
@@ -75,13 +82,22 @@ namespace Bread.Services
             return restaurant;
         }
 
+        public async Task<string> GetBannerAsync(int id)
+        {
+            BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
+
+            var path = Path.Combine(storageOptions.RestaurantUploadsPath, bllRestaurant.BannerPath);
+
+            return path;
+        }
+
         public async Task CreateBannerAsync(int id, byte[] bytes)
         {
             string bannerPath = await uploadsHandler.PersistAsync(storageOptions.RestaurantUploadsPath, bytes);
 
             BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
             bllRestaurant.BannerPath = bannerPath;
-
+                       
             await restaurantRepository.UpdateAsync(bllRestaurant);            
         }        
     }
