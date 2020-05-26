@@ -55,6 +55,8 @@ namespace Bread.WebApi
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             ConfigureDbContext(services);
 
             ConfigureJsonWebToken(services);
@@ -174,13 +176,13 @@ namespace Bread.WebApi
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.RestaurantUploadsPath),
+                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath),
                 RequestPath = "/images/restaurant"                
             });
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.UserUploadsPath),
+                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
                 RequestPath = "/images/user"
             });
         }

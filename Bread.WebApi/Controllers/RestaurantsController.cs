@@ -4,7 +4,9 @@ using Bread.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using System.IO;
 using System.Threading.Tasks;
 
 using DTO = Bread.DataTransfer;
@@ -16,17 +18,25 @@ namespace Bread.WebApi.Controllers
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
-        private readonly IRestaurantService restaurantService;        
+        private readonly IRestaurantService restaurantService;
 
         public RestaurantsController(IRestaurantService restaurantService)
         {
-            this.restaurantService = restaurantService;            
-        }
+            this.restaurantService = restaurantService;
+        }        
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var result = await restaurantService.GetAllAsync();
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var result = await restaurantService.GetAsync(id);
 
             return Ok(result);
         }
@@ -39,22 +49,26 @@ namespace Bread.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}/banner")]
-        public async Task<IActionResult> GetBannerAsync(int id)
+        [HttpPost("{id}/banner")]            
+        public async Task<IActionResult> CreateBannerAsync(int id, [BindRequired] IFormFile file)
         {
-            string path = await restaurantService.GetBannerAsync(id);
+            if (!file.IsImage())
+            {
+                throw new UnsupportedContentTypeException("Uploaded file is not an image file.");
+            }            
 
-            var image = System.IO.File.OpenRead(path);
+            byte[] bytes = await file.GetBytesAsync();
 
-            return File(image, "image/jpg");
-        }
-
-        [HttpPost("{id}/banner")]                
-        public async Task<IActionResult> CreateBannerAsync(int id, IFormFile file)
-        {
-            byte[] bytes = await file.GetBytesAsync();            
-
-            await restaurantService.CreateBannerAsync(id, bytes);
+            await 
+                restaurantService
+                    .CreateBannerAsync(
+                        id, 
+                        new DTO.BreadFile() 
+                        { 
+                            Bytes = bytes, 
+                            Extension = Path.GetExtension(file.FileName) 
+                        }
+                    );
 
             return Ok();
         }

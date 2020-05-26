@@ -6,7 +6,7 @@ using Bread.FileSystem.Contracts;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
 using System.Collections.Generic;
@@ -21,19 +21,22 @@ namespace Bread.Services
     public class RestaurantService : BreadService, IRestaurantService
     {
         private readonly IRestaurantRepository restaurantRepository;
-        private readonly IUploadsHandler uploadsHandler;        
+        private readonly IUploadsHandler uploadsHandler;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly StorageOptions storageOptions;
 
         public RestaurantService(
             IRestaurantRepository restaurantRepository, 
             IUploadsHandler uploadsHandler,
-            IOptions<StorageOptions> options,            
+            IOptions<StorageOptions> options,
+            IHttpContextAccessor httpContextAccessor,
             IMapper mapper
         )
             :base(mapper)
         {
             this.restaurantRepository = restaurantRepository;
-            this.uploadsHandler = uploadsHandler;            
+            this.uploadsHandler = uploadsHandler;
+            this.httpContextAccessor = httpContextAccessor;
             this.storageOptions = options.Value;
         }
 
@@ -52,10 +55,15 @@ namespace Bread.Services
 
             IEnumerable<Restaurant> result = Mapper.Map<IEnumerable<DTO.Restaurant>>(restaurants);
 
-            foreach(var restaurant in result)
-            {
-                restaurant.BannerPath = (restaurant.BannerPath != null ? Path.Combine(storageOptions.RestaurantUploadsPath, restaurant.BannerPath) : null);
-            }
+            //foreach(var restaurant in result)
+            //{
+            //    // TODO: refactor this
+            //    restaurant.BannerPath = 
+            //        (restaurant.BannerPath != null 
+            //            ? Path.Combine(GetRestaurantImagesUrl(), restaurant.BannerPath).Replace("\\", "/") 
+            //            : null
+            //        );
+            //}
 
             return result;
         }
@@ -91,14 +99,23 @@ namespace Bread.Services
             return path;
         }
 
-        public async Task CreateBannerAsync(int id, byte[] bytes)
+        public async Task CreateBannerAsync(int id, BreadFile file)
         {
-            string bannerPath = await uploadsHandler.PersistAsync(storageOptions.RestaurantUploadsPath, bytes);
+            string bannerPath = 
+                await uploadsHandler.PersistAsync(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath, file);
 
             BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
-            bllRestaurant.BannerPath = bannerPath;
+            bllRestaurant.BannerPath = Path.Combine(GetRestaurantImagesUrl(), bannerPath).Replace("\\", "/") ;
                        
             await restaurantRepository.UpdateAsync(bllRestaurant);            
-        }        
+        }
+
+        private string GetRestaurantImagesUrl()
+        {
+            var request = httpContextAccessor.HttpContext.Request;
+
+            return Path.Combine($"{request.Scheme}://{request.Host}", @storageOptions.RestaurantUploadsPath);
+                    
+        }
     }
 }

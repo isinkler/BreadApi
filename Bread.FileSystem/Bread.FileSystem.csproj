@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bread.Common\Bread.Common.csproj" />
+    <ProjectReference Include="..\Bread.DataTransfer\Bread.DataTransfer.csproj" />
   </ItemGroup>
 
 </Project>

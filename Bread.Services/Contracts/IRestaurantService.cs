@@ -19,6 +19,6 @@ namespace Bread.Services.Contracts
 
         Task<string> GetBannerAsync(int id);
 
-        Task CreateBannerAsync(int id, byte[] restaurantBanner);
+        Task CreateBannerAsync(int id, BreadFile file);
     }
 }

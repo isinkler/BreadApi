@@ -62,7 +62,7 @@ namespace Bread.Repositories
 
             dalRestaurant.ThrowIfNull(nameof(dalRestaurant));
 
-            Mapper.Map(dalRestaurant, restaurant);
+            Mapper.Map(restaurant, dalRestaurant);
 
             Context.Update(dalRestaurant);
             await Context.SaveChangesAsync();

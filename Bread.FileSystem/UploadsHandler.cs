@@ -1,4 +1,5 @@
-﻿using Bread.FileSystem.Contracts;
+﻿using Bread.DataTransfer;
+using Bread.FileSystem.Contracts;
 
 using System;
 using System.IO;
@@ -8,13 +9,13 @@ namespace Bread.FileSystem
 {
     public class UploadsHandler : IUploadsHandler
     {        
-        public async Task<string> PersistAsync(string path, byte[] bytes)
+        public async Task<string> PersistAsync(string path, BreadFile file)
         {
-            string fileName = Guid.NewGuid().ToString();
+            string fileName = Guid.NewGuid().ToString() + file.Extension;
 
             path = Path.Combine(path, fileName);
-
-            await File.WriteAllBytesAsync(path, bytes);
+           
+            await File.WriteAllBytesAsync(path, file.Bytes);
 
             return fileName;
         }
