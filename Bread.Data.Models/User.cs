@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
 {
@@ -19,11 +19,21 @@ namespace Bread.Data.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
         
+        [Required]
         public string Password { get; set; }
 
         [Phone]
         public string Phone { get; set; }
 
-        public List<Order> Orders { get; set; }
+        public int? RestaurantId { get; set; }
+
+        [ForeignKey(nameof(RestaurantId))]
+        public Restaurant Restaurant { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+
+        public ICollection<FavouriteRestaurant> FavouriteRestaurants { get; set; }
+
+        public ICollection<RedeemedVoucher> RedeemedVouchers  { get; set; }
     }
 }

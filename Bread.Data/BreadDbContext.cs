@@ -17,12 +17,32 @@ namespace Bread.Data
 
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<FavouriteRestaurant> FavouriteRestaurants { get; set; }
+
+        public DbSet<KitchenType> KitchenTypes { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<OrderReview> OrderReviews { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<RedeemedVoucher> RedeemedVouchers { get; set; }
+
+        public DbSet<Restaurant> Restaurants { get; set; }
+
+        public DbSet<RestaurantKitchenType> RestaurantKitchenTypes { get; set; }
+
+        public DbSet<Topping> Toppings { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<UserAddress> UserAddresses { get; set; }
+
+        public DbSet<Voucher> Vouchers { get; set; }
     }
 }
