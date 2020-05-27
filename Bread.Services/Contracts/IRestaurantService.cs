@@ -9,8 +9,16 @@ namespace Bread.Services.Contracts
 {
     public interface IRestaurantService
     {
+        Task<DTO.Restaurant> GetAsync(int id);
+
         Task<IEnumerable<DTO.Restaurant>> GetAllAsync();
 
         Task<Restaurant> CreateAsync(Restaurant restaurant);
+
+        Task<Restaurant> UpdateAsync(Restaurant restaurant);
+
+        Task<string> GetBannerAsync(int id);
+
+        Task CreateBannerAsync(int id, BreadFile file);
     }
 }

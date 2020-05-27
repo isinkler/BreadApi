@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bread.DependencyInjection\Bread.DependencyInjection.csproj" />
-    <ProjectReference Include="..\Bread.Security\Bread.Security.csproj" />
     <ProjectReference Include="..\Bread.Services\Bread.Services.csproj" />
   </ItemGroup>
 

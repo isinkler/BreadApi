@@ -12,6 +12,8 @@ namespace Bread.Data.Models
 
         public int PriceCategory { get; set; }
 
+        public string BannerPath { get; set; }
+
         public TimeSpan OpenFrom { get; set; }
 
         public TimeSpan OpenTo { get; set; }

@@ -1,5 +1,6 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 
+using Bread.Common.Extensions;
 using Bread.Data;
 using Bread.Repositories.Contracts;
 
@@ -19,16 +20,25 @@ namespace Bread.Repositories
         public RestaurantRepository(BreadDbContext dbContext, IMapper mapper) 
             : base(dbContext, mapper)
         {
+        }
 
-        }        
+        public async Task<BLL.Restaurant> GetAsync(int id)
+        {
+            DAL.Restaurant dalRestaurant = 
+                await Context.Restaurants.SingleOrDefaultAsync(entity => entity.Id == id);
+
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+
+            return result;
+        }
 
         public async Task<IEnumerable<BLL.Restaurant>> GetAllAsync()
         {
-            IQueryable<DAL.Restaurant> entityQuery = Context.Restaurants;
+            IQueryable<DAL.Restaurant> entitiesQuery = Context.Restaurants;
 
-            List<DAL.Restaurant> entities = await entityQuery.ToListAsync();
+            List<DAL.Restaurant> entities = await entitiesQuery.ToListAsync();
 
-            IEnumerable<BLL.Restaurant> result = Mapper.Map<IEnumerable<BLL.Restaurant>>(entities);
+            var result = Mapper.Map<IEnumerable<BLL.Restaurant>>(entities);
 
             return result;
         }
@@ -40,9 +50,26 @@ namespace Bread.Repositories
             await Context.Restaurants.AddAsync(dalRestaurant);
             await Context.SaveChangesAsync();
 
-            restaurant = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
 
-            return restaurant;
+            return result;
+        }
+
+        public async Task<BLL.Restaurant> UpdateAsync(BLL.Restaurant restaurant)
+        {
+            DAL.Restaurant dalRestaurant = 
+                await Context.Restaurants.SingleOrDefaultAsync(entity => entity.Id == restaurant.Id);
+
+            dalRestaurant.ThrowIfNull(nameof(dalRestaurant));
+
+            Mapper.Map(restaurant, dalRestaurant);
+
+            Context.Update(dalRestaurant);
+            await Context.SaveChangesAsync();
+
+            var result = Mapper.Map<BLL.Restaurant>(dalRestaurant);
+
+            return result;
         }
     }
 }
