@@ -30,9 +30,7 @@ namespace Bread.Data.Models
         [ForeignKey(nameof(RestaurantId))]
         public Restaurant Restaurant { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
-
-        public ICollection<FavouriteRestaurant> FavouriteRestaurants { get; set; }
+        public ICollection<Order> Orders { get; set; }        
 
         public ICollection<RedeemedVoucher> RedeemedVouchers  { get; set; }
     }

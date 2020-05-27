@@ -17,9 +17,16 @@ namespace Bread.Data
 
         }
 
-        public DbSet<Address> Addresses { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<User>()
+                .HasOne(user => user.Restaurant)
+                .WithOne(restaurant => restaurant.Manager)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
 
-        public DbSet<FavouriteRestaurant> FavouriteRestaurants { get; set; }
+        public DbSet<Address> Addresses { get; set; }        
 
         public DbSet<KitchenType> KitchenTypes { get; set; }
 
