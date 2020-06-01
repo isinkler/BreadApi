@@ -24,6 +24,22 @@ namespace Bread.Data
                 .HasOne(user => user.Restaurant)
                 .WithOne(restaurant => restaurant.Manager)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder
+                .Entity<ProductOrder>()
+                .HasKey(productOrder => new { productOrder.OrderId, productOrder.ProductId });
+
+            modelBuilder
+                .Entity<ProductOrder>()
+                .HasOne(productOrder => productOrder.Product)
+                .WithMany(product => product.ProductOrders)
+                .HasForeignKey(productOrder => productOrder.ProductId);
+
+            modelBuilder
+                .Entity<ProductOrder>()
+                .HasOne(productOrder => productOrder.Order)
+                .WithMany(order => order.ProductOrders)
+                .HasForeignKey(productOrder => productOrder.OrderId);
         }
 
         public DbSet<Address> Addresses { get; set; }        
@@ -32,7 +48,7 @@ namespace Bread.Data
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
 
         public DbSet<OrderReview> OrderReviews { get; set; }
 

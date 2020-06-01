@@ -98,28 +98,6 @@ namespace Bread.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Bread.Data.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems");
-                });
-
             modelBuilder.Entity("Bread.Data.Models.OrderReview", b =>
                 {
                     b.Property<int>("Id")
@@ -162,6 +140,21 @@ namespace Bread.Data.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Bread.Data.Models.ProductOrder", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductOrders");
                 });
 
             modelBuilder.Entity("Bread.Data.Models.RedeemedVoucher", b =>
@@ -358,21 +351,6 @@ namespace Bread.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Bread.Data.Models.OrderItem", b =>
-                {
-                    b.HasOne("Bread.Data.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Bread.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Bread.Data.Models.OrderReview", b =>
                 {
                     b.HasOne("Bread.Data.Models.Order", "Order")
@@ -387,6 +365,21 @@ namespace Bread.Data.Migrations
                     b.HasOne("Bread.Data.Models.Restaurant", "Restaurant")
                         .WithMany("Products")
                         .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bread.Data.Models.ProductOrder", b =>
+                {
+                    b.HasOne("Bread.Data.Models.Order", "Order")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bread.Data.Models.Product", "Product")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

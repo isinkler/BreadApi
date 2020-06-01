@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Bread.Domain.Models
+﻿namespace Bread.Domain.Models
 {
     public class Order
     {
@@ -18,8 +16,6 @@ namespace Bread.Domain.Models
         
         public User User { get; set; }
         
-        public OrderReview OrderReview { get; set; }
-
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public OrderReview OrderReview { get; set; }        
     }
 }

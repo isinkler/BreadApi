@@ -19,5 +19,7 @@ namespace Bread.Data.Models
         public Restaurant Restaurant { get; set; }
 
         public ICollection<Topping> Toppings { get; set; }
+
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

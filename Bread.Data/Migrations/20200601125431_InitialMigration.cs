@@ -245,32 +245,6 @@ namespace Bread.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderItems_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderReviews",
                 columns: table => new
                 {
@@ -290,15 +264,29 @@ namespace Bread.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_OrderId",
-                table: "OrderItems",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_ProductId",
-                table: "OrderItems",
-                column: "ProductId");
+            migrationBuilder.CreateTable(
+                name: "ProductOrders",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductOrders", x => new { x.OrderId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_ProductOrders_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductOrders_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderReviews_OrderId",
@@ -314,6 +302,11 @@ namespace Bread.Data.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrders_ProductId",
+                table: "ProductOrders",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_RestaurantId",
@@ -383,7 +376,7 @@ namespace Bread.Data.Migrations
                 table: "OrderReviews");
 
             migrationBuilder.DropTable(
-                name: "OrderItems");
+                name: "ProductOrders");
 
             migrationBuilder.DropTable(
                 name: "RedeemedVouchers");

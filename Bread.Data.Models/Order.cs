@@ -23,6 +23,6 @@ namespace Bread.Data.Models
         [ForeignKey(nameof(OrderReviewId))]
         public OrderReview OrderReview { get; set; }
 
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }
