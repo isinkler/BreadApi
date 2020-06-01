@@ -6,6 +6,6 @@ namespace Bread.Repositories.Contracts
 {
     public interface IOrderRepository
     {
-        Task<Order> CreateOrder(int userId, IEnumerable<);
+        
     }
 }
