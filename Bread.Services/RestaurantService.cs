@@ -54,17 +54,7 @@ namespace Bread.Services
             IEnumerable<BLL.Restaurant> restaurants = await restaurantRepository.GetAllAsync();
 
             IEnumerable<Restaurant> result = Mapper.Map<IEnumerable<DTO.Restaurant>>(restaurants);
-
-            //foreach(var restaurant in result)
-            //{
-            //    // TODO: refactor this
-            //    restaurant.BannerPath = 
-            //        (restaurant.BannerPath != null 
-            //            ? Path.Combine(GetRestaurantImagesUrl(), restaurant.BannerPath).Replace("\\", "/") 
-            //            : null
-            //        );
-            //}
-
+            
             return result;
         }
 

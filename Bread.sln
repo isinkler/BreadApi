@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Common", "Bread.Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Security", "Bread.Security\Bread.Security.csproj", "{9ED98401-8A16-41E7-9B75-6117EA850C48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.FileSystem", "Bread.FileSystem\Bread.FileSystem.csproj", "{C5F0B7EA-C345-4527-A79C-58DC3130ADA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.FileSystem", "Bread.FileSystem\Bread.FileSystem.csproj", "{C5F0B7EA-C345-4527-A79C-58DC3130ADA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Repositories.Contracts", "Bread.Repositories.Contracts\Bread.Repositories.Contracts.csproj", "{C5034290-A184-4DD2-BA92-6755055931AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{C5F0B7EA-C345-4527-A79C-58DC3130ADA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5F0B7EA-C345-4527-A79C-58DC3130ADA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5F0B7EA-C345-4527-A79C-58DC3130ADA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5034290-A184-4DD2-BA92-6755055931AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5034290-A184-4DD2-BA92-6755055931AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5034290-A184-4DD2-BA92-6755055931AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5034290-A184-4DD2-BA92-6755055931AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{72DB4747-19D0-47D3-8731-6EFAA9B1A1E8} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
 		{9ED98401-8A16-41E7-9B75-6117EA850C48} = {C20DD53E-D91D-46EB-B368-A95EF3342148}
 		{C5F0B7EA-C345-4527-A79C-58DC3130ADA3} = {C20DD53E-D91D-46EB-B368-A95EF3342148}
+		{C5034290-A184-4DD2-BA92-6755055931AF} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E77E917D-DA77-4BF9-B61F-FBC4E1DCC6CB}
