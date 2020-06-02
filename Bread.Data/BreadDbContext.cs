@@ -1,6 +1,8 @@
-﻿using Bread.Data.Models;
+﻿using Bread.Common.Enumerations;
+using Bread.Data.Models;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread.Data
 {
@@ -24,6 +26,11 @@ namespace Bread.Data
                 .HasOne(user => user.Restaurant)
                 .WithOne(restaurant => restaurant.Manager)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder
+                .Entity<Order>()
+                .Property(order => order.Status)
+                .HasConversion(new EnumToNumberConverter<OrderStatus, int>());
 
             modelBuilder
                 .Entity<ProductOrder>()

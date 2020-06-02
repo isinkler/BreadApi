@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Bread.Common.Enumerations;
+
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
@@ -7,7 +9,7 @@ namespace Bread.Data.Models
     {
         public int Id { get; set; }
 
-        public int Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         public int PaymentType { get; set; }
         

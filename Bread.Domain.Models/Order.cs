@@ -1,10 +1,14 @@
-﻿namespace Bread.Domain.Models
+﻿using Bread.Common.Enumerations;
+
+using System.Collections.Generic;
+
+namespace Bread.Domain.Models
 {
     public class Order
     {
         public int Id { get; set; }
 
-        public int Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         public int PaymentType { get; set; }
 

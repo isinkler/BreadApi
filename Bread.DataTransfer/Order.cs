@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Bread.Common.Enumerations;
+
+using System.Collections.Generic;
 
 namespace Bread.DataTransfer
 {
@@ -6,7 +8,7 @@ namespace Bread.DataTransfer
     {
         public int Id { get; set; }
 
-        public int Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         public int PaymentType { get; set; }
 
