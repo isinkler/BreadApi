@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Bread.Data\Bread.Data.csproj" />
     <ProjectReference Include="..\Bread.Domain.Models\Bread.Domain.Models.csproj" />
     <ProjectReference Include="..\Bread.Data.Models\Bread.Data.Models.csproj" />
+    <ProjectReference Include="..\Bread.Repositories.Contracts\Bread.Repositories.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

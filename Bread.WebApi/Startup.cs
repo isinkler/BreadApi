@@ -8,20 +8,28 @@ using Bread.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System;
+using System.IO;
 using System.Text;
 
 namespace Bread.WebApi
 {
     public class Startup
     {
+        private const string SecuritySectionName = "Security";
+        private const string StorageSectionName = "Storage";
+        private const string JsonWebTokenSectionName = "Security:Jwt";
+
         public Startup(IWebHostEnvironment env)
         {
             var builder = 
@@ -40,36 +48,37 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            });
 
-            services
-                .AddDbContext<BreadDbContext>(
-                    options =>
-                        options.UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
-                );
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            ConfigureDbContext(services);
 
             ConfigureJsonWebToken(services);
 
-            services
-                .Configure<SecurityOptions>(config => Configuration.GetSection("Security").Bind(config));
+            ConfigureOptions(services);
 
-            services
-                .AddAuthorization(config =>
-                {
-                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                    config.AddPolicy(Policies.User, Policies.UserPolicy());
-                });
+            ConfigureSwagger(services);
+        }        
 
-            services.AddSwaggerGen(setupAction =>
-            {
-                setupAction
-                    .SwaggerDoc("v1", new OpenApiInfo { Title = "Bread API", Version = "v1" });
-            });
+        private void ConfigureDbContext(IServiceCollection services)
+        {
+            services
+                .AddDbContext<BreadDbContext>(
+                    options =>
+                        options
+                            .UseSqlServer(Configuration.GetSection("ConnectionString:BreadDb").Value)
+                );
         }
 
         private void ConfigureJsonWebToken(IServiceCollection services)
         {
-            JwtOptions jwtOptions = Configuration.GetSection("Security:Jwt").Get<JwtOptions>();
+            JwtOptions jwtOptions = Configuration.GetSection(JsonWebTokenSectionName).Get<JwtOptions>();
 
             var tokenValidationParameters = new TokenValidationParameters()
             {
@@ -91,6 +100,31 @@ namespace Bread.WebApi
                     options.SaveToken = true;
                     options.TokenValidationParameters = tokenValidationParameters;
                 });
+
+            services
+                .AddAuthorization(config =>
+                {
+                    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                    config.AddPolicy(Policies.User, Policies.UserPolicy());
+                });
+        }
+
+        private void ConfigureOptions(IServiceCollection services)
+        {
+            services
+                .Configure<SecurityOptions>(config => Configuration.GetSection(SecuritySectionName).Bind(config));
+
+            services
+                .Configure<StorageOptions>(config => Configuration.GetSection(StorageSectionName).Bind(config));
+        }
+
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction
+                    .SwaggerDoc("v1", new OpenApiInfo { Title = "Bread API", Version = "v1" });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -119,8 +153,10 @@ namespace Bread.WebApi
             });
         }
 
-        private static void ConfigureWebApi(IApplicationBuilder app)
+        private void ConfigureWebApi(IApplicationBuilder app)
         {
+            ConfigureUploadsLocations(app);
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -129,6 +165,25 @@ namespace Bread.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+        }
+
+        private void ConfigureUploadsLocations(IApplicationBuilder app)
+        {
+            StorageOptions storageOptions = Configuration.GetSection(StorageSectionName).Get<StorageOptions>();
+
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath),
+                RequestPath = "/images/restaurant"                
+            });
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
+                RequestPath = "/images/user"
             });
         }
     }
