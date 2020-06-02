@@ -1,4 +1,4 @@
-﻿namespace Bread.Data.Models
+﻿namespace Bread.DataTransfer
 {
     public class ProductOrder
     {

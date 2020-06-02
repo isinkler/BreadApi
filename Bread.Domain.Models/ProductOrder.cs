@@ -1,4 +1,4 @@
-﻿namespace Bread.Data.Models
+﻿namespace Bread.Domain.Models
 {
     public class ProductOrder
     {

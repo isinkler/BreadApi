@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bread.Common\Bread.Common.csproj" />
     <ProjectReference Include="..\Bread.Data.Models\Bread.Data.Models.csproj" />
   </ItemGroup>
 

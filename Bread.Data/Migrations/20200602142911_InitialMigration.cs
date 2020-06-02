@@ -268,12 +268,14 @@ namespace Bread.Data.Migrations
                 name: "ProductOrders",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
                     OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductOrders", x => new { x.OrderId, x.ProductId });
+                    table.PrimaryKey("PK_ProductOrders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProductOrders_Orders_OrderId",
                         column: x => x.OrderId,
@@ -302,6 +304,11 @@ namespace Bread.Data.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrders_OrderId",
+                table: "ProductOrders",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductOrders_ProductId",

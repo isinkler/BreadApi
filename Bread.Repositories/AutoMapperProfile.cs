@@ -9,8 +9,29 @@ namespace Bread.Repositories
     {
         public AutoMapperProfile()
         {
+            MapOrders();
+            MapProducts();
+            MapProductOrders();
             MapRestaurant();
             MapUser();
+        }
+
+        private void MapOrders()
+        {
+            CreateMap<DAL.Order, BLL.Order>();
+            CreateMap<BLL.Order, DAL.Order>();
+        }
+
+        private void MapProducts()
+        {
+            CreateMap<DAL.Product, BLL.Product>();
+            CreateMap<BLL.Product, DAL.Product>();
+        }
+
+        private void MapProductOrders()
+        {
+            CreateMap<DAL.ProductOrder, BLL.ProductOrder>();
+            CreateMap<BLL.ProductOrder, DAL.ProductOrder>();
         }
 
         private void MapRestaurant()
