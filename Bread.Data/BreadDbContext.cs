@@ -31,11 +31,7 @@ namespace Bread.Data
                 .Entity<Order>()
                 .Property(order => order.Status)
                 .HasConversion(new EnumToNumberConverter<OrderStatus, int>());
-
-            modelBuilder
-                .Entity<ProductOrder>()
-                .HasKey(productOrder => new { productOrder.OrderId, productOrder.ProductId });
-
+           
             modelBuilder
                 .Entity<ProductOrder>()
                 .HasOne(productOrder => productOrder.Product)
