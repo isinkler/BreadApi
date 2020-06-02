@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using System;
 using BLL = Bread.Domain.Models;
 using DTO = Bread.DataTransfer;
 
@@ -9,8 +9,29 @@ namespace Bread.Services
     {
         public AutoMapperProfile()
         {
+            MapOrders();
+            MapProducts();
+            MapProductOrders();
             MapRestaurant();
             MapUser();
+        }
+
+        private void MapOrders()
+        {
+            CreateMap<BLL.Order, DTO.Order>();
+            CreateMap<DTO.Order, BLL.Order>();
+        }
+
+        private void MapProducts()
+        {
+            CreateMap<BLL.Product, DTO.Product>();
+            CreateMap<DTO.Product, BLL.Product>();
+        }
+
+        private void MapProductOrders()
+        {
+            CreateMap<BLL.ProductOrder, DTO.ProductOrder>();
+            CreateMap<DTO.ProductOrder, BLL.ProductOrder>();
         }
 
         private void MapRestaurant()

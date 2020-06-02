@@ -42,18 +42,18 @@ namespace Bread.Services
 
         public async Task<Restaurant> GetAsync(int id)
         {
-            BLL.Restaurant restaurant = await restaurantRepository.GetAsync(id);
+            BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
 
-            var result = Mapper.Map<DTO.Restaurant>(restaurant);
+            var result = Mapper.Map<DTO.Restaurant>(bllRestaurant);
 
             return result;
         }
 
         public async Task<IEnumerable<DTO.Restaurant>> GetAllAsync()
         {
-            IEnumerable<BLL.Restaurant> restaurants = await restaurantRepository.GetAllAsync();
+            IEnumerable<BLL.Restaurant> bllRestaurants = await restaurantRepository.GetAllAsync();
 
-            IEnumerable<Restaurant> result = Mapper.Map<IEnumerable<DTO.Restaurant>>(restaurants);
+            var result = Mapper.Map<IEnumerable<DTO.Restaurant>>(bllRestaurants);
             
             return result;
         }
@@ -104,8 +104,7 @@ namespace Bread.Services
         {
             var request = httpContextAccessor.HttpContext.Request;
 
-            return Path.Combine($"{request.Scheme}://{request.Host}", @storageOptions.RestaurantUploadsPath);
-                    
+            return Path.Combine($"{request.Scheme}://{request.Host}", @storageOptions.RestaurantUploadsPath);                    
         }
     }
 }
