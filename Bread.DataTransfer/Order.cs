@@ -25,6 +25,7 @@ namespace Bread.DataTransfer
         public OrderReview OrderReview { get; set; }
 
         [Required]
+        [MinLength(1)]
         public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }
