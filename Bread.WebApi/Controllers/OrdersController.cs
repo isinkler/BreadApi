@@ -20,6 +20,7 @@ namespace Bread.WebApi.Controllers
             this.orderService = orderService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] DTO.Order order)
         {
             Order result = await orderService.CreateAsync(order);
