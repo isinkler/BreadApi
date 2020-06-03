@@ -139,6 +139,12 @@ namespace Bread.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<BreadDbContext>();
+                context.Database.Migrate();
+            }
+
             ConfigureSwagger(app);
 
             ConfigureWebApi(app);
