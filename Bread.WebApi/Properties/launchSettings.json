@@ -17,13 +17,22 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Bread": {
+    "Bread-Development": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:7777",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Bread-Docker": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://0.0.0.0:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Docker"
       }
     }
   }
