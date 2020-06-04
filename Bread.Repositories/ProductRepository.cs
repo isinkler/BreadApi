@@ -15,7 +15,7 @@ using DAL = Bread.Data.Models;
 
 namespace Bread.Repositories
 {
-    public class ProductRepository : BreadRepository, IProductRepository
+    public class ProductRepository : GenericBreadRepository<DAL.Product, BLL.Product>, IProductRepository
     {
         public ProductRepository(BreadDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
@@ -30,37 +30,6 @@ namespace Bread.Repositories
 
             return result;
         }
-
-        public async Task<Product> GetAsync(int id)
-        {
-            DAL.Product dalProduct =
-                await Context.Products.SingleOrDefaultAsync(entity => entity.Id == id);
-
-            var result = Mapper.Map<BLL.Product>(dalProduct);
-
-            return result;
-        }
-
-        public async Task<Product> CreateAsync(Product product)
-        {
-            var dalProduct = Mapper.Map<DAL.Product>(product);
-
-            await Context.Products.AddAsync(dalProduct);
-            await Context.SaveChangesAsync();
-
-            var result = Mapper.Map<BLL.Product>(dalProduct);
-
-            return result;
-        }
-
-        public Task<Product> UpdateAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+                      
     }
 }

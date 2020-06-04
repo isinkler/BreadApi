@@ -4,16 +4,8 @@ using System.Threading.Tasks;
 
 namespace Bread.Services.Contracts
 {
-    public interface IProductService
+    public interface IProductService : IGenericBreadService<Product>
     {
-        Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId);
-
-        Task<Product> GetAsync(int id);
-
-        Task<Product> CreateAsync(Product product);
-
-        Task<Product> UpdateAsync(Product product);
-
-        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId);        
     }
 }

@@ -5,16 +5,8 @@ using System.Threading.Tasks;
 
 namespace Bread.Repositories.Contracts
 {
-    public interface IProductRepository
+    public interface IProductRepository : IGenericBreadRepository<Product>
     {
-        Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId);
-
-        Task<Product> GetAsync(int id);
-
-        Task<Product> CreateAsync(Product product);
-
-        Task<Product> UpdateAsync(Product product);
-
-        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId);        
     }
 }

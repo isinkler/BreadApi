@@ -1,42 +1,26 @@
 ﻿using AutoMapper;
 
 using Bread.DataTransfer;
+using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using BLL = Bread.Domain.Models;
+using DTO = Bread.DataTransfer;
+
 namespace Bread.Services
 {
-    public class ProductService : BreadService, IProductService
+    public class ProductService : GenericBreadService<BLL.Product, DTO.Product>, IProductService
     {
-        public ProductService(IMapper mapper) : base(mapper)
+        public ProductService(IProductRepository productRepository, IMapper mapper) : base(productRepository, mapper)
         {
         }
 
         public Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId)
         {
             throw new System.NotImplementedException();
-        }
-
-        public Task<Product> GetAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Product> CreateAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Product> UpdateAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+        }        
     }
 }
