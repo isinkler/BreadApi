@@ -24,9 +24,9 @@ namespace Bread.WebApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] Authentication authentication)
         {
-            string token = await userService.LoginAsync(authentication);
+            var result = await userService.LoginAsync(authentication);
 
-            return Ok(new { token });
+            return Ok(result);
         }
 
         [AllowAnonymous]

@@ -9,6 +9,16 @@ namespace Bread.Repositories
         protected override void Load(ContainerBuilder builder)
         {
             builder
+                .RegisterType<OrderRepository>()
+                .As<IOrderRepository>()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<ProductRepository>()
+                .As<IProductRepository>()
+                .InstancePerLifetimeScope();
+
+            builder
                 .RegisterType<RestaurantRepository>()
                 .As<IRestaurantRepository>()
                 .InstancePerLifetimeScope();
@@ -16,12 +26,7 @@ namespace Bread.Repositories
             builder
                 .RegisterType<UserRepository>()
                 .As<IUserRepository>()
-                .InstancePerLifetimeScope();
-
-            builder
-                .RegisterType<OrderRepository>()
-                .As<IOrderRepository>()
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope();            
         }
     }
 }

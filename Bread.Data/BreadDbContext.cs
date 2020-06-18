@@ -28,6 +28,11 @@ namespace Bread.Data
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder
+                .Entity<User>()
+                .HasIndex(user => user.EmailAddress)
+                .IsUnique();
+
+            modelBuilder
                 .Entity<Order>()
                 .Property(order => order.Status)
                 .HasConversion(new EnumToNumberConverter<OrderStatus, int>());

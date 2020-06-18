@@ -32,7 +32,7 @@ namespace Bread.Services
             this.jsonWebTokenGenerator = jsonWebTokenGenerator;            
         }
 
-        public async Task<string> LoginAsync(Authentication authentication)
+        public async Task<Login> LoginAsync(Authentication authentication)
         {
             BLL.User bllUser = await userRepository.GetByEmailAsync(authentication.EmailAddress);
 
@@ -45,7 +45,14 @@ namespace Bread.Services
 
             if (passwordVerified)
             {
-                return jsonWebTokenGenerator.GenerateJsonWebToken(bllUser.Id, bllUser.LastName);    
+                string token = jsonWebTokenGenerator.GenerateJsonWebToken(bllUser.Id, bllUser.LastName);
+                DTO.User dtoUser = Mapper.Map<DTO.User>(bllUser);
+
+                return new Login()
+                {
+                    Token = token,
+                    User = dtoUser
+                };
             }
 
             throw new AuthenticationException("Incorrect password!");
