@@ -40,6 +40,11 @@ namespace Bread.Repositories
 
         public async Task<BLL.User> CreateAsync(BLL.User user)
         {
+            if (await GetByEmailAsync(user.EmailAddress) != null)
+            {
+                throw new ArgumentException("This email address is already being used!");
+            }
+
             DAL.User dalUser = Mapper.Map<DAL.User>(user);
 
             Context.Users.Add(dalUser);
