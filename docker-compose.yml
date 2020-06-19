@@ -10,6 +10,8 @@ services:
             ASPNETCORE_ENVIRONMENT: "Docker"
     db:
         image: "mcr.microsoft.com/mssql/server"
+        ports:
+            - "1433:1433"
         environment:
             SA_PASSWORD: "iH@jJc5uHa1j"
             ACCEPT_EULA: "Y"            
