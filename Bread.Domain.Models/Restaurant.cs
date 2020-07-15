@@ -1,9 +1,7 @@
 ﻿namespace Bread.Domain.Models
 {
-    public class Restaurant
-    {
-        public int Id { get; set; }
-
+    public class Restaurant : BreadDomainModel
+    {       
         public string Name { get; set; }
 
         public string BannerPath { get; set; }

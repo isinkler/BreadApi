@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
 {
-    public class Restaurant
-    {
-        public int Id { get; set; }
-
+    public class Restaurant : BreadDataModel
+    {        
         [Required]
         public string Name { get; set; }
 

@@ -9,7 +9,6 @@ using Bread.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -18,7 +17,7 @@ using DTO = Bread.DataTransfer;
 
 namespace Bread.Services
 {
-    public class RestaurantService : BreadService, IRestaurantService
+    public class RestaurantService : GenericBreadService<BLL.Restaurant, DTO.Restaurant>, IRestaurantService
     {
         private readonly IRestaurantRepository restaurantRepository;
         private readonly IUploadsHandler uploadsHandler;
@@ -32,53 +31,13 @@ namespace Bread.Services
             IHttpContextAccessor httpContextAccessor,
             IMapper mapper
         )
-            :base(mapper)
+            : base(restaurantRepository, mapper)
         {
             this.restaurantRepository = restaurantRepository;
             this.uploadsHandler = uploadsHandler;
             this.httpContextAccessor = httpContextAccessor;
             this.storageOptions = options.Value;
-        }
-
-        public async Task<Restaurant> GetAsync(int id)
-        {
-            BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
-
-            var result = Mapper.Map<DTO.Restaurant>(bllRestaurant);
-
-            return result;
-        }
-
-        public async Task<IEnumerable<DTO.Restaurant>> GetAllAsync()
-        {
-            IEnumerable<BLL.Restaurant> bllRestaurants = await restaurantRepository.GetAllAsync();
-
-            var result = Mapper.Map<IEnumerable<DTO.Restaurant>>(bllRestaurants);
-            
-            return result;
-        }
-
-        public async Task<DTO.Restaurant> CreateAsync(DTO.Restaurant restaurant)
-        {
-            var bllRestaurant = Mapper.Map<BLL.Restaurant>(restaurant);
-
-            bllRestaurant = await restaurantRepository.CreateAsync(bllRestaurant);
-
-            restaurant = Mapper.Map<DTO.Restaurant>(bllRestaurant);
-
-            return restaurant;
-        }
-
-        public async Task<DTO.Restaurant> UpdateAsync(DTO.Restaurant restaurant)
-        {
-            var bllRestaurant = Mapper.Map<BLL.Restaurant>(restaurant);
-
-            bllRestaurant = await restaurantRepository.UpdateAsync(bllRestaurant);
-
-            restaurant = Mapper.Map<DTO.Restaurant>(bllRestaurant);
-
-            return restaurant;
-        }
+        }        
 
         public async Task<string> GetBannerAsync(int id)
         {
