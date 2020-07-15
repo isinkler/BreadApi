@@ -50,7 +50,9 @@ namespace Bread.Data
                 .HasForeignKey(productOrder => productOrder.OrderId);
         }
 
-        public DbSet<Address> Addresses { get; set; }        
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<City> Cities { get; set; }
 
         public DbSet<KitchenType> KitchenTypes { get; set; }
 

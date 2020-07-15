@@ -9,11 +9,18 @@ namespace Bread.Services
     {
         public AutoMapperProfile()
         {
+            MapCities();
             MapOrders();
             MapProducts();
             MapProductOrders();
-            MapRestaurant();
-            MapUser();
+            MapRestaurants();
+            MapUsers();
+        }
+
+        private void MapCities()
+        {
+            CreateMap<BLL.City, DTO.City>();
+            CreateMap<DTO.City, BLL.City>();
         }
 
         private void MapOrders()
@@ -34,13 +41,13 @@ namespace Bread.Services
             CreateMap<DTO.ProductOrder, BLL.ProductOrder>();
         }
 
-        private void MapRestaurant()
+        private void MapRestaurants()
         {
             CreateMap<BLL.Restaurant, DTO.Restaurant>();
             CreateMap<DTO.Restaurant, BLL.Restaurant>();
         }
 
-        private void MapUser()
+        private void MapUsers()
         {
             CreateMap<BLL.User, DTO.User>()
                 .ForMember(dtoUser => dtoUser.Password, options => options.Ignore());

@@ -26,7 +26,12 @@ namespace Bread.Services
             builder
                 .RegisterType<UserService>()
                 .As<IUserService>()
-                .InstancePerLifetimeScope();            
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<CityService>()
+                .As<ICityService>()
+                .InstancePerLifetimeScope();
         }
     }
 }

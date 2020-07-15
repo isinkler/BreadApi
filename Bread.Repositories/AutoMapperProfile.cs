@@ -9,11 +9,18 @@ namespace Bread.Repositories
     {
         public AutoMapperProfile()
         {
+            MapCities();
             MapOrders();
             MapProducts();
             MapProductOrders();
             MapRestaurant();
             MapUser();
+        }
+
+        private void MapCities()
+        {
+            CreateMap<DAL.City, BLL.City>();
+            CreateMap<BLL.City, DAL.City>();
         }
 
         private void MapOrders()

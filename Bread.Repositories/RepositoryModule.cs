@@ -26,7 +26,12 @@ namespace Bread.Repositories
             builder
                 .RegisterType<UserRepository>()
                 .As<IUserRepository>()
-                .InstancePerLifetimeScope();            
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<CityRepository>()
+                .As<ICityRepository>()
+                .InstancePerLifetimeScope();
         }
     }
 }
