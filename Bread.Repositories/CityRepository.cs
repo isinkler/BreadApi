@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using Bread.Data;
 using Bread.Repositories.Contracts;
 

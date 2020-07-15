@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+
 using Bread.DataTransfer;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

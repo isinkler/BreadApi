@@ -13,8 +13,8 @@ namespace Bread.Repositories
             MapOrders();
             MapProducts();
             MapProductOrders();
-            MapRestaurant();
-            MapUser();
+            MapRestaurants();
+            MapUsers();
         }
 
         private void MapCities()
@@ -41,13 +41,13 @@ namespace Bread.Repositories
             CreateMap<BLL.ProductOrder, DAL.ProductOrder>();
         }
 
-        private void MapRestaurant()
+        private void MapRestaurants()
         {
             CreateMap<DAL.Restaurant, BLL.Restaurant>();
             CreateMap<BLL.Restaurant, DAL.Restaurant>();
         }
 
-        private void MapUser()
+        private void MapUsers()
         {
             CreateMap<DAL.User, BLL.User>();
             CreateMap<BLL.User, DAL.User>();
