@@ -1,7 +1,6 @@
 ﻿using Bread.Common.Extensions;
 using Bread.Services.Contracts;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -14,8 +13,7 @@ using DTO = Bread.DataTransfer;
 namespace Bread.WebApi.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]")]    
     public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantService restaurantService;

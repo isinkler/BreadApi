@@ -11,8 +11,7 @@ using DTO = Bread.DataTransfer;
 namespace Bread.WebApi.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]")]   
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService orderService;

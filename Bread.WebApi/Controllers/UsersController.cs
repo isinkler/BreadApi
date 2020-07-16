@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace Bread.WebApi.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]")]    
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
