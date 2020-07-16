@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
 {
-    public class User
+    public class User : BreadDataModel
     {
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }

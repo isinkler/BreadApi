@@ -29,7 +29,6 @@ namespace Bread.Repositories
             var result = Mapper.Map<IEnumerable<BLL.Product>>(dalProducts);
 
             return result;
-        }
-                      
+        }                      
     }
 }
