@@ -2,6 +2,7 @@
 
 using Bread.DataTransfer;
 using Bread.Domain.Models;
+using Bread.Exceptions;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
@@ -33,6 +34,8 @@ namespace Bread.Services
         public virtual async Task<IEnumerable<TDataTransfer>> GetAllAsync()
         {
             IEnumerable<TDomainModel> domainModels = await repository.GetAllAsync();
+
+            throw new BreadException("PROBLEMMOOOS", System.Net.HttpStatusCode.BadRequest);
 
             var result = Mapper.Map<IEnumerable<TDataTransfer>>(domainModels);
 

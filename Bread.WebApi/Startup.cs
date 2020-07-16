@@ -4,6 +4,7 @@ using Bread.Common.Options;
 using Bread.Data;
 using Bread.DependencyInjection;
 using Bread.Security;
+using Bread.WebApi.Extensions;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -180,6 +181,8 @@ namespace Bread.WebApi
             StorageOptions storageOptions = Configuration.GetSection(StorageSectionName).Get<StorageOptions>();
 
             app.UseStaticFiles();
+
+            app.UseAPIResponseWrapperMiddleware();
 
             app.UseStaticFiles(new StaticFileOptions()
             {
