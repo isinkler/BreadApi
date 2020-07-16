@@ -2,10 +2,8 @@
 
 namespace Bread.DataTransfer
 { 
-    public class Product
+    public class Product : BreadDataTransfer
     {
-        public int Id { get; set; }
-        
         public string Name { get; set; }
 
         public double Price { get; set; }

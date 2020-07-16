@@ -1,9 +1,7 @@
 ﻿namespace Bread.DataTransfer
 {
-    public class City
-    {
-        public int Id { get; set; }
-
+    public class City : BreadDataTransfer
+    {        
         public string Name { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 
+using Bread.DataTransfer;
+using Bread.Domain.Models;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
@@ -9,7 +11,8 @@ using System.Threading.Tasks;
 namespace Bread.Services
 {
     public abstract class GenericBreadService<TDomainModel, TDataTransfer> : BreadService, IGenericBreadService<TDataTransfer>        
-        where TDomainModel : class
+        where TDomainModel : BreadDomainModel
+        where TDataTransfer : BreadDataTransfer
     {
         private readonly IGenericBreadRepository<TDomainModel> repository;
 

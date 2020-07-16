@@ -13,16 +13,17 @@ using DTO = Bread.DataTransfer;
 
 namespace Bread.Services
 {
-    public class OrderService : BreadService, IOrderService
+    public class OrderService : GenericBreadService<BLL.Order, DTO.Order>, IOrderService
     {
         private readonly IOrderRepository orderRepository;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper) : base(mapper)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper) 
+            : base(orderRepository, mapper)
         {
             this.orderRepository = orderRepository;
         }
 
-        public async Task<Order> CreateAsync(DTO.Order order)
+        public async override Task<Order> CreateAsync(DTO.Order order)
         {
             var bllOrder = new BLL.Order()
             {
@@ -45,6 +46,7 @@ namespace Bread.Services
 
             bllOrder = await orderRepository.UpdateAsync(bllOrder);
 
+            // ?
             return null;
         }
     }
