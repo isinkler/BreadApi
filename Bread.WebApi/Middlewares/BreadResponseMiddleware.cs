@@ -30,8 +30,11 @@ namespace Bread.WebApi.Middlewares
 
         private async Task ChangeResponseBodyAsync(HttpContext context)
         {
+            // saving the original reference to the stream, before the response is formed, because we
+            // can't modify this
             Stream originalBodyStream = context.Response.Body;
 
+            // assigning a new MemoryStream object to the response body, this can be modified
             var modifiedBodyStream = new MemoryStream();
             context.Response.Body = modifiedBodyStream;
 
@@ -77,7 +80,7 @@ namespace Bread.WebApi.Middlewares
 
         private static async Task CopyResponseBodyToOriginalStreamAsync(Stream originalBodyStream, MemoryStream responseBody)
         {
-            // with .NET Core one cannot modify the original stream, so it has to be copied from the modified stream
+            // with .NET Core we can't modify the original stream, so it has to be copied from the modified stream
             responseBody.Seek(0, SeekOrigin.Begin);
             await responseBody.CopyToAsync(originalBodyStream);
         }
