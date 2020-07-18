@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Bread.Exceptions;
+
 using System.Runtime.Serialization;
 
 namespace Bread.WebApi
@@ -7,28 +8,24 @@ namespace Bread.WebApi
     public class BreadResponse
     {
         [DataMember]
-        public int HttpStatusCode { get; set; }
+        public bool IsSuccess { get; set; }
 
         [DataMember]
         public string Message { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public object Result { get; set; }
+        public object Data { get; set; }
 
-        [DataMember(EmitDefaultValue = false)]
-        public ApiError ResponseException { get; set; }
-
-        public BreadResponse(HttpStatusCode httpStatusCode, string message = "", object result = null, ApiError apiError = null)
+        public BreadResponse(bool isSuccess = true, string message = "", object result = null)
         {
-            HttpStatusCode = (int)httpStatusCode;
+            IsSuccess = isSuccess;
             Message = message;
-            Result = result;
-            this.ResponseException = apiError;
+            Data = result;            
         }
 
-        public static BreadResponse Create(HttpStatusCode httpStatusCode)
+        public static BreadResponse Create(bool success, BreadException breadException)
         {
-            return new BreadResponse(httpStatusCode);
+            return new BreadResponse(isSuccess: success, message: breadException.Message);
         }
     }
 }

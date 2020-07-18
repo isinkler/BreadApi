@@ -165,6 +165,8 @@ namespace Bread.WebApi
         {
             ConfigureUploadsLocations(app);
 
+            app.UseAPIResponseWrapperMiddleware();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -182,8 +184,6 @@ namespace Bread.WebApi
 
             app.UseStaticFiles();
 
-            app.UseAPIResponseWrapperMiddleware();
-
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath),
@@ -194,7 +194,7 @@ namespace Bread.WebApi
             {
                 FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
                 RequestPath = "/images/user"
-            });
+            });            
         }
     }
 }

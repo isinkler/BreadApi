@@ -6,6 +6,7 @@ using Bread.Exceptions;
 using Bread.Repositories.Contracts;
 using Bread.Services.Contracts;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,10 +34,8 @@ namespace Bread.Services
 
         public virtual async Task<IEnumerable<TDataTransfer>> GetAllAsync()
         {
-            IEnumerable<TDomainModel> domainModels = await repository.GetAllAsync();
-
-            throw new BreadException("PROBLEMMOOOS", System.Net.HttpStatusCode.BadRequest);
-
+            IEnumerable<TDomainModel> domainModels = await repository.GetAllAsync();            
+            
             var result = Mapper.Map<IEnumerable<TDataTransfer>>(domainModels);
 
             return result;
