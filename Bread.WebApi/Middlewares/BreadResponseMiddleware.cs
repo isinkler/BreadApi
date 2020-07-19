@@ -35,16 +35,16 @@ namespace Bread.WebApi.Middlewares
             Stream originalBodyStream = context.Response.Body;
 
             // assigning a new MemoryStream object to the response body, this can be modified
-            var modifiedBodyStream = new MemoryStream();
+            using var modifiedBodyStream = new MemoryStream();
             context.Response.Body = modifiedBodyStream;
 
-            var breadResponse = new BreadResponse();
+            var breadResponse = BreadResponse.Create();
 
             try
             {
                 await next.Invoke(context);
 
-                string body = await GetResponseBodyStringAsync(context.Response);
+                string body = await GetResponseBodyStringAsync(context.Response);                
                 
                 breadResponse.IsSuccess = true;
                 breadResponse.Data = body;                               
@@ -55,7 +55,7 @@ namespace Bread.WebApi.Middlewares
                 breadResponse.Message = ex.Message;
             }
             finally
-            {
+            {             
                 string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
 
                 await context.Response.WriteAsync(jsonResponse);
