@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bread.Net;
+
+using Microsoft.AspNetCore.Http;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Bread.WebApi
 {
@@ -13,23 +14,10 @@ namespace Bread.WebApi
         {
             context.Response.ContentType = ContentTypeJson;
 
-            string jsonResponse = JsonConvert.SerializeObject(response, JsonSerializerSettings());
+            string jsonResponse = 
+                JsonConvert.SerializeObject(response, JsonSerializerSettingsProvider.SerializerSettings());
 
             return jsonResponse;
-        }
-
-        private static JsonSerializerSettings JsonSerializerSettings()
-        {
-            var contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
-
-            return new JsonSerializerSettings
-            {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
-            };
-        }
+        }        
     }
 }

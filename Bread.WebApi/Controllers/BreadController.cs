@@ -7,16 +7,19 @@ namespace Bread.WebApi.Controllers
 
         protected ActionResult Success()
         {
-            var breadResponse = new BreadResponse(true, null, null);
-
-            return breadResponse;
+            return new BreadResponse()
+            {
+                IsSuccess = true
+            };            
         }
 
-        protected ActionResult Success(object value)
+        protected ActionResult Success(object data)
         {
-            var breadResponse = new BreadResponse(true, null, value);
-            
-            return breadResponse;
+            return new BreadResponse()
+            {
+                IsSuccess = true,
+                Data = data
+            };            
         }
     }
 }

@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Repositories.Contract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Services.Contracts", "Bread.Services.Contracts\Bread.Services.Contracts.csproj", "{FA5807A8-AB46-440B-ABE8-2A0DA912D59D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Exceptions", "Bread.Exceptions\Bread.Exceptions.csproj", "{E72603A7-D6D4-4648-A407-8D3C3160DC38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread.Exceptions", "Bread.Exceptions\Bread.Exceptions.csproj", "{E72603A7-D6D4-4648-A407-8D3C3160DC38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread.Net", "Bread.Net\Bread.Net.csproj", "{930E356F-9765-461A-86D5-FC71996EC9C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,10 @@ Global
 		{E72603A7-D6D4-4648-A407-8D3C3160DC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E72603A7-D6D4-4648-A407-8D3C3160DC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E72603A7-D6D4-4648-A407-8D3C3160DC38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930E356F-9765-461A-86D5-FC71996EC9C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930E356F-9765-461A-86D5-FC71996EC9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930E356F-9765-461A-86D5-FC71996EC9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930E356F-9765-461A-86D5-FC71996EC9C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +126,7 @@ Global
 		{C5034290-A184-4DD2-BA92-6755055931AF} = {34FF79B4-5F75-47C9-B0F2-D29FB810EA79}
 		{FA5807A8-AB46-440B-ABE8-2A0DA912D59D} = {C20DD53E-D91D-46EB-B368-A95EF3342148}
 		{E72603A7-D6D4-4648-A407-8D3C3160DC38} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
+		{930E356F-9765-461A-86D5-FC71996EC9C4} = {F020A5EB-37D6-4843-AA32-1A5FA8C63380}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E77E917D-DA77-4BF9-B61F-FBC4E1DCC6CB}

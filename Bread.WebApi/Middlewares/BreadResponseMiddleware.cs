@@ -29,22 +29,10 @@ namespace Bread.WebApi.Middlewares
         }
 
         private async Task ChangeResponseBodyAsync(HttpContext context)
-        {
-            
-
+        {            
             try
             {
-                await next.Invoke(context);
-
-                //string body = await GetResponseBodyStringAsync(context.Response);                               
-                
-                //breadResponse.IsSuccess = true;
-                //breadResponse.Data = body;
-
-                //if (body.Length == 0)
-                //{
-                //    modifiedBodyStream = new MemoryStream();
-                //}
+                await next.Invoke(context);               
             }
             catch (Exception ex)
             {
@@ -56,40 +44,31 @@ namespace Bread.WebApi.Middlewares
                 var modifiedBodyStream = new MemoryStream();
                 context.Response.Body = modifiedBodyStream;
 
-                var breadResponse = BreadResponse.Create();
-
-                breadResponse.IsSuccess = false;
-                breadResponse.Message = ex.Message;
-
-                string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
+                string jsonResponse = GetExceptionJsonResponse(context, ex);
 
                 await context.Response.WriteAsync(jsonResponse);
 
                 await CopyModifiedBodyStreamToOriginalBodyStreamAsync(modifiedBodyStream, originalBodyStream);
             }
-            //finally
-            //{             
-                //string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
+        }
 
-                //await context.Response.WriteAsync(jsonResponse);
+        private static string GetExceptionJsonResponse(HttpContext context, Exception ex)
+        {
+            var breadResponse = new BreadResponse()
+            {
+                IsSuccess = false,
+                Message = ex.Message
+            };
 
-                //await CopyModifiedBodyStreamToOriginalBodyStreamAsync(modifiedBodyStream, originalBodyStream);
-            //}
+            string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
+
+            return jsonResponse;
         }
 
         private static bool IsSwagger(HttpContext context)
         {
             return context.Request.Path.StartsWithSegments(SwaggerUrlPath);
-        }
-
-        private static async Task<string> GetResponseBodyStringAsync(HttpResponse response)
-        {
-            response.Body.Seek(0, SeekOrigin.Begin);
-            string responseBodyString = await new StreamReader(response.Body).ReadToEndAsync();
-            response.Body.Seek(0, SeekOrigin.Begin);
-
-            return responseBodyString;
-        }        
+        }              
 
         private static async Task CopyModifiedBodyStreamToOriginalBodyStreamAsync(MemoryStream modifiedBodyStream, Stream originalBodyStream)
         {

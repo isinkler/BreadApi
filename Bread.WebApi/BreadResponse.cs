@@ -1,9 +1,6 @@
-﻿using Bread.Exceptions;
+﻿using Bread.Net;
 
 using Microsoft.AspNetCore.Mvc;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -20,45 +17,13 @@ namespace Bread.WebApi
         public string Message { get; set; }
 
         [DataMember]
-        public object Data { get; set; }
-
-        public BreadResponse(bool isSuccess, string message = null, object value = null)
-        {
-            IsSuccess = isSuccess;
-            Message = message;
-            Data = value;            
-        }
+        public object Data { get; set; }      
 
         public override Task ExecuteResultAsync(ActionContext context)
         {
-
-            var json = new JsonResult(this, JsonSerializerSettings());
+            var json = new JsonResult(this, JsonSerializerSettingsProvider.SerializerSettings());
 
             return json.ExecuteResultAsync(context);
-        }
-
-        public static BreadResponse Create()
-        {
-            return new BreadResponse(isSuccess: true);
-        }
-
-        public static BreadResponse Create(bool success, BreadException breadException)
-        {
-            return new BreadResponse(isSuccess: success, message: breadException.Message);
-        }
-
-        private static JsonSerializerSettings JsonSerializerSettings()
-        {
-            var contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
-
-            return new JsonSerializerSettings
-            {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
-            };
-        }
+        }                
     }
 }
