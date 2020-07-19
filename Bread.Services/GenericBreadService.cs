@@ -33,7 +33,7 @@ namespace Bread.Services
         }
 
         public virtual async Task<IEnumerable<TDataTransfer>> GetAllAsync()
-        {
+        {            
             IEnumerable<TDomainModel> domainModels = await repository.GetAllAsync();            
             
             var result = Mapper.Map<IEnumerable<TDataTransfer>>(domainModels);

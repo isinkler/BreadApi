@@ -14,7 +14,7 @@ namespace Bread.WebApi.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")]    
-    public class RestaurantsController : ControllerBase
+    public class RestaurantsController : BreadController
     {
         private readonly IRestaurantService restaurantService;
 
@@ -28,7 +28,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.GetAllAsync();
 
-            return Ok(result);
+            return Success(result);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +36,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.GetAsync(id);
 
-            return Ok(result);
+            return Success(result);
         }
 
         [HttpPost]       
@@ -44,7 +44,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.CreateAsync(restaurant);
 
-            return Ok(result);
+            return Success(result);
         }
 
         [HttpPost("{id}/banner")]            
@@ -65,7 +65,7 @@ namespace Bread.WebApi.Controllers
 
             await restaurantService.CreateBannerAsync(id, bannerFile);
 
-            return Ok();
+            return Success();
         }
     }
 }

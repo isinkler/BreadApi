@@ -30,38 +30,51 @@ namespace Bread.WebApi.Middlewares
 
         private async Task ChangeResponseBodyAsync(HttpContext context)
         {
-            // saving the original reference to the stream, before the response is formed, because we
-            // can't modify this
-            Stream originalBodyStream = context.Response.Body;
-
-            // assigning a new MemoryStream object to the response body, this can be modified
-            using var modifiedBodyStream = new MemoryStream();
-            context.Response.Body = modifiedBodyStream;
-
-            var breadResponse = BreadResponse.Create();
+            
 
             try
             {
                 await next.Invoke(context);
 
-                string body = await GetResponseBodyStringAsync(context.Response);                
+                //string body = await GetResponseBodyStringAsync(context.Response);                               
                 
-                breadResponse.IsSuccess = true;
-                breadResponse.Data = body;                               
+                //breadResponse.IsSuccess = true;
+                //breadResponse.Data = body;
+
+                //if (body.Length == 0)
+                //{
+                //    modifiedBodyStream = new MemoryStream();
+                //}
             }
             catch (Exception ex)
-            {                
+            {
+                // saving the original reference to the stream, before the response is formed, because we
+                // can't modify this
+                Stream originalBodyStream = context.Response.Body;
+
+                // assigning a new MemoryStream object to the response body, this can be modified
+                var modifiedBodyStream = new MemoryStream();
+                context.Response.Body = modifiedBodyStream;
+
+                var breadResponse = BreadResponse.Create();
+
                 breadResponse.IsSuccess = false;
                 breadResponse.Message = ex.Message;
-            }
-            finally
-            {             
+
                 string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
 
                 await context.Response.WriteAsync(jsonResponse);
 
-                await CopyResponseBodyToOriginalStreamAsync(originalBodyStream, modifiedBodyStream);
+                await CopyModifiedBodyStreamToOriginalBodyStreamAsync(modifiedBodyStream, originalBodyStream);
             }
+            //finally
+            //{             
+                //string jsonResponse = BreadJsonHttpResponseMessageHelper.Create(context, breadResponse);
+
+                //await context.Response.WriteAsync(jsonResponse);
+
+                //await CopyModifiedBodyStreamToOriginalBodyStreamAsync(modifiedBodyStream, originalBodyStream);
+            //}
         }
 
         private static bool IsSwagger(HttpContext context)
@@ -78,11 +91,11 @@ namespace Bread.WebApi.Middlewares
             return responseBodyString;
         }        
 
-        private static async Task CopyResponseBodyToOriginalStreamAsync(Stream originalBodyStream, MemoryStream responseBody)
+        private static async Task CopyModifiedBodyStreamToOriginalBodyStreamAsync(MemoryStream modifiedBodyStream, Stream originalBodyStream)
         {
             // with .NET Core we can't modify the original stream, so it has to be copied from the modified stream
-            responseBody.Seek(0, SeekOrigin.Begin);
-            await responseBody.CopyToAsync(originalBodyStream);
+            modifiedBodyStream.Seek(0, SeekOrigin.Begin);
+            await modifiedBodyStream.CopyToAsync(originalBodyStream);
         }
     }
 }
