@@ -4,6 +4,7 @@ using Bread.Common.Options;
 using Bread.Data;
 using Bread.DependencyInjection;
 using Bread.Security;
+using Bread.WebApi.Extensions;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -49,10 +50,12 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options =>
-            {
-                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-            });
+            services
+                .AddControllers(options =>
+                {
+                    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+                })
+                .AddNewtonsoftJson();
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -164,6 +167,8 @@ namespace Bread.WebApi
         {
             ConfigureUploadsLocations(app);
 
+            app.UseAPIResponseWrapperMiddleware();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -191,7 +196,7 @@ namespace Bread.WebApi
             {
                 FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
                 RequestPath = "/images/user"
-            });
+            });            
         }
     }
 }
