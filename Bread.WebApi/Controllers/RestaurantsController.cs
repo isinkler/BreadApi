@@ -47,8 +47,8 @@ namespace Bread.WebApi.Controllers
             return Success(result);
         }
 
-        [HttpPost("{id}/banner")]            
-        public async Task<IActionResult> CreateBannerAsync(int id, [BindRequired] IFormFile file)
+        [HttpPost("{id}/image")]            
+        public async Task<IActionResult> AddImageAsync(int id, [BindRequired] IFormFile file)
         {
             if (!file.IsImage())
             {
