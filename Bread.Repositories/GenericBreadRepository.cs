@@ -66,7 +66,8 @@ namespace Bread.Repositories
 
             Mapper.Map(domainModel, entity);
 
-            Context.Update(entity);
+            Context.Entry(entity).State = EntityState.Modified;
+
             await Context.SaveChangesAsync();
 
             var result = Mapper.Map<TDomainModel>(entity);
