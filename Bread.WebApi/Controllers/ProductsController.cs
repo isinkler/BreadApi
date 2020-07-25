@@ -13,7 +13,7 @@ using DTO = Bread.DataTransfer;
 
 namespace Bread.WebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]    
     public class ProductsController : BreadController
     {

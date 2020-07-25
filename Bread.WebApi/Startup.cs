@@ -3,6 +3,7 @@ using Autofac;
 using Bread.Common.Options;
 using Bread.Data;
 using Bread.DependencyInjection;
+using Bread.Net;
 using Bread.Security;
 using Bread.WebApi.Extensions;
 
@@ -60,6 +61,8 @@ namespace Bread.WebApi
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IWebHostManager, WebHostManager>();
 
             ConfigureDbContext(services);
 
@@ -119,7 +122,7 @@ namespace Bread.WebApi
                 .Configure<SecurityOptions>(config => Configuration.GetSection(SecuritySectionName).Bind(config));
 
             services
-                .Configure<StorageOptions>(config => Configuration.GetSection(StorageSectionName).Bind(config));
+                .Configure<StorageOptions>(config => Configuration.GetSection(StorageSectionName).Bind(config));            
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
@@ -167,7 +170,7 @@ namespace Bread.WebApi
         {
             ConfigureUploadsLocations(app);
 
-            app.UseAPIResponseWrapperMiddleware();
+            app.UseBreadResponseWrapper();
 
             app.UseRouting();
 
@@ -188,14 +191,14 @@ namespace Bread.WebApi
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath),
-                RequestPath = "/images/restaurant"                
+                FileProvider = new PhysicalFileProvider(storageOptions.RestaurantUploadsAbsolutePath),
+                RequestPath = "/images/restaurants"                
             });
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
-                RequestPath = "/images/user"
+                FileProvider = new PhysicalFileProvider(storageOptions.UserUploadsAbsolutePath),
+                RequestPath = "/images/users"
             });            
         }
     }
