@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bread.DataTransfer
 {
@@ -8,5 +9,7 @@ namespace Bread.DataTransfer
         public string Name { get; set; }
 
         public string ImagePath { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }
