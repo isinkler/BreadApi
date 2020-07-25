@@ -21,6 +21,11 @@ namespace Bread.Services
         public Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId)
         {
             throw new System.NotImplementedException();
-        }        
+        }
+
+        public Task AddImageAsync(int id, BreadFile image)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -57,13 +57,13 @@ namespace Bread.WebApi.Controllers
 
             byte[] bytes = await file.GetBytesAsync();
 
-            var bannerFile = new DTO.BreadFile()
+            var image = new DTO.BreadFile()
             {
                 Bytes = bytes,
                 Extension = Path.GetExtension(file.FileName)
             };
 
-            await restaurantService.CreateBannerAsync(id, bannerFile);
+            await restaurantService.AddImageAsync(id, image);
 
             return Success();
         }

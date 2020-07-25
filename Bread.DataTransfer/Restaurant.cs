@@ -7,6 +7,6 @@ namespace Bread.DataTransfer
         [Required]
         public string Name { get; set; }
 
-        public string BannerPath { get; set; }
+        public string ImagePath { get; set; }
     }
 }

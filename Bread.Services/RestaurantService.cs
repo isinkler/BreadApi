@@ -37,24 +37,15 @@ namespace Bread.Services
             this.uploadsHandler = uploadsHandler;
             this.httpContextAccessor = httpContextAccessor;
             this.storageOptions = options.Value;
-        }        
+        }                
 
-        public async Task<string> GetBannerAsync(int id)
+        public async Task AddImageAsync(int id, BreadFile file)
         {
-            BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
-
-            var path = Path.Combine(storageOptions.RestaurantUploadsPath, bllRestaurant.BannerPath);
-
-            return path;
-        }
-
-        public async Task CreateBannerAsync(int id, BreadFile file)
-        {
-            string bannerPath = 
+            string imagePath = 
                 await uploadsHandler.PersistAsync(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath, file);
 
             BLL.Restaurant bllRestaurant = await restaurantRepository.GetAsync(id);
-            bllRestaurant.BannerPath = Path.Combine(GetRestaurantImagesUrl(), bannerPath).Replace("\\", "/") ;
+            bllRestaurant.ImagePath = Path.Combine(GetRestaurantImagesUrl(), imagePath).Replace("\\", "/") ;
                        
             await restaurantRepository.UpdateAsync(bllRestaurant);            
         }
