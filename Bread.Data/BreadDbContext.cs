@@ -48,6 +48,11 @@ namespace Bread.Data
                 .HasOne(productOrder => productOrder.Order)
                 .WithMany(order => order.ProductOrders)
                 .HasForeignKey(productOrder => productOrder.OrderId);
+
+            modelBuilder
+                .Entity<Restaurant>()
+                .HasMany(restaurant => restaurant.Products)
+                .WithOne(product => product.Restaurant);
         }
 
         public DbSet<Address> Addresses { get; set; }

@@ -7,9 +7,7 @@ using DTO = Bread.DataTransfer;
 namespace Bread.Services.Contracts
 {
     public interface IRestaurantService : IGenericBreadService<DTO.Restaurant>
-    {       
-        Task<string> GetBannerAsync(int id);
-
-        Task CreateBannerAsync(int id, BreadFile file);
+    {               
+        Task AddImageAsync(int id, BreadFile file);
     }
 }

@@ -11,13 +11,30 @@ namespace Bread.FileSystem
     {        
         public async Task<string> PersistAsync(string path, BreadFile file)
         {
-            string fileName = Guid.NewGuid().ToString() + file.Extension;
+            string fileName = GetFileName(file);
+
+            CheckPath(path);
 
             path = Path.Combine(path, fileName);
-           
+
             await File.WriteAllBytesAsync(path, file.Bytes);
 
             return fileName;
+        }
+
+        private static string GetFileName(BreadFile file)
+        {
+            return Guid.NewGuid().ToString() + file.Extension;
+        }
+
+        private static void CheckPath(string path)
+        {
+            bool folderExists = Directory.Exists(path);
+
+            if (!folderExists)
+            {
+                Directory.CreateDirectory(path);
+            }
         }
     }
 }

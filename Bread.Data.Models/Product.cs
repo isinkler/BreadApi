@@ -11,6 +11,8 @@ namespace Bread.Data.Models
 
         public double Price { get; set; }
 
+        public string ImagePath { get; set; }
+
         public int RestaurantId { get; set; }
 
         [ForeignKey(nameof(RestaurantId))]
