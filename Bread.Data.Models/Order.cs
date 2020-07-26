@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
 {
-    public class Order
+    public class Order : BreadDataModel
     {
-        public int Id { get; set; }
-
         public OrderStatus Status { get; set; }
 
         public int PaymentType { get; set; }

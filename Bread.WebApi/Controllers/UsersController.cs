@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace Bread.WebApi.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    [Route("api/[controller]")]    
+    public class UsersController : BreadController
     {
         private readonly IUserService userService;
 
@@ -26,7 +25,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await userService.LoginAsync(authentication);
 
-            return Ok(result);
+            return Success(result);
         }
 
         [AllowAnonymous]
@@ -35,7 +34,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await userService.RegisterAsync(user);
 
-            return Ok(result);
+            return Success(result);
         }
     }
 }

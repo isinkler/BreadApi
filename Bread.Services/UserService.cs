@@ -13,7 +13,7 @@ using DTO = Bread.DataTransfer;
 
 namespace Bread.Services
 {
-    public class UserService : BreadService, IUserService
+    public class UserService : GenericBreadService<BLL.User, DTO.User>, IUserService
     {
         private readonly IUserRepository userRepository;
         private readonly IPasswordHasher passwordHasher;
@@ -25,7 +25,7 @@ namespace Bread.Services
             IJsonWebTokenGenerator jsonWebTokenGenerator,            
             IMapper mapper
         ) 
-            : base(mapper)
+            : base(userRepository, mapper)
         {
             this.userRepository = userRepository;
             this.passwordHasher = passwordHasher;

@@ -1,13 +1,9 @@
-﻿using Bread.Domain.Models;
-
-using System.Threading.Tasks;
+﻿
+using BLL = Bread.Domain.Models;
 
 namespace Bread.Repositories.Contracts
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IGenericBreadRepository<BLL.Order>
     {
-        Task<Order> CreateAsync(Order bllOrder);
-
-        Task<Order> UpdateAsync(Order bllOrder);
     }
 }

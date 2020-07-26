@@ -1,12 +1,14 @@
 ﻿using Bread.Services.Contracts;
+
 using Microsoft.AspNetCore.Mvc;
+
 using System.Threading.Tasks;
+
 using DTO = Bread.DataTransfer;
 
 namespace Bread.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]")]    
     public class CitiesController : ControllerBase
     {
         private readonly ICityService cityService;

@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 namespace Bread.Domain.Models
 {
-    public class Order
+    public class Order : BreadDomainModel
     {
-        public int Id { get; set; }
-
         public OrderStatus Status { get; set; }
 
         public int PaymentType { get; set; }

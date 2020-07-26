@@ -2,10 +2,8 @@
 
 namespace Bread.DataTransfer
 {
-    public class User
+    public class User : BreadDataTransfer
     {
-        public int Id { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 

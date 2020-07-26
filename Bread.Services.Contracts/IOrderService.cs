@@ -1,13 +1,9 @@
-﻿using Bread.DataTransfer;
-
-using System.Threading.Tasks;
+﻿
+using DTO = Bread.DataTransfer;
 
 namespace Bread.Services.Contracts
 {
-    public interface IOrderService
+    public interface IOrderService : IGenericBreadService<DTO.Order>
     {
-        Task<Order> CreateAsync(Order order);
-
-
     }
 }

@@ -3,12 +3,15 @@ using Autofac;
 using Bread.Common.Options;
 using Bread.Data;
 using Bread.DependencyInjection;
+using Bread.Net;
 using Bread.Security;
+using Bread.WebApi.Extensions;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +22,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System;
-using System.IO;
 using System.Text;
 
+[assembly: ApiController]
 namespace Bread.WebApi
 {
     public class Startup
@@ -48,14 +51,18 @@ namespace Bread.WebApi
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options =>
-            {
-                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-            });
+            services
+                .AddControllers(options =>
+                {
+                    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+                })
+                .AddNewtonsoftJson();
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IWebHostManager, WebHostManager>();
 
             ConfigureDbContext(services);
 
@@ -115,7 +122,7 @@ namespace Bread.WebApi
                 .Configure<SecurityOptions>(config => Configuration.GetSection(SecuritySectionName).Bind(config));
 
             services
-                .Configure<StorageOptions>(config => Configuration.GetSection(StorageSectionName).Bind(config));
+                .Configure<StorageOptions>(config => Configuration.GetSection(StorageSectionName).Bind(config));            
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
@@ -163,6 +170,8 @@ namespace Bread.WebApi
         {
             ConfigureUploadsLocations(app);
 
+            app.UseBreadResponseWrapper();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -182,15 +191,15 @@ namespace Bread.WebApi
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.RestaurantUploadsPath),
-                RequestPath = "/images/restaurant"                
+                FileProvider = new PhysicalFileProvider(storageOptions.RestaurantUploadsAbsolutePath),
+                RequestPath = "/images/restaurants"                
             });
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(storageOptions.UploadsPath + storageOptions.UserUploadsPath),
-                RequestPath = "/images/user"
-            });
+                FileProvider = new PhysicalFileProvider(storageOptions.UserUploadsAbsolutePath),
+                RequestPath = "/images/users"
+            });            
         }
     }
 }

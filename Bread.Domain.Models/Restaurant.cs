@@ -1,11 +1,13 @@
-﻿namespace Bread.Domain.Models
-{
-    public class Restaurant
-    {
-        public int Id { get; set; }
+﻿using System.Collections.Generic;
 
+namespace Bread.Domain.Models
+{
+    public class Restaurant : BreadDomainModel
+    {       
         public string Name { get; set; }
 
-        public string BannerPath { get; set; }
+        public string ImagePath { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

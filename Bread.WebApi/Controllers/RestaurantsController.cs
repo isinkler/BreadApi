@@ -1,7 +1,6 @@
 ﻿using Bread.Common.Extensions;
 using Bread.Services.Contracts;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -13,10 +12,9 @@ using DTO = Bread.DataTransfer;
 
 namespace Bread.WebApi.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RestaurantsController : ControllerBase
+    //[Authorize]
+    [Route("api/[controller]")]    
+    public class RestaurantsController : BreadController
     {
         private readonly IRestaurantService restaurantService;
 
@@ -30,7 +28,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.GetAllAsync();
 
-            return Ok(result);
+            return Success(result);
         }
 
         [HttpGet("{id}")]
@@ -38,7 +36,7 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.GetAsync(id);
 
-            return Ok(result);
+            return Success(result);
         }
 
         [HttpPost]       
@@ -46,11 +44,11 @@ namespace Bread.WebApi.Controllers
         {
             var result = await restaurantService.CreateAsync(restaurant);
 
-            return Ok(result);
+            return Success(result);
         }
 
-        [HttpPost("{id}/banner")]            
-        public async Task<IActionResult> CreateBannerAsync(int id, [BindRequired] IFormFile file)
+        [HttpPost("{id}/image")]            
+        public async Task<IActionResult> AddImageAsync(int id, [BindRequired] IFormFile file)
         {
             if (!file.IsImage())
             {
@@ -59,15 +57,15 @@ namespace Bread.WebApi.Controllers
 
             byte[] bytes = await file.GetBytesAsync();
 
-            var bannerFile = new DTO.BreadFile()
+            var image = new DTO.BreadFile()
             {
                 Bytes = bytes,
                 Extension = Path.GetExtension(file.FileName)
             };
 
-            await restaurantService.CreateBannerAsync(id, bannerFile);
+            await restaurantService.AddImageAsync(id, image);
 
-            return Ok();
+            return Success();
         }
     }
 }

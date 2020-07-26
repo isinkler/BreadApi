@@ -5,16 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread.Data.Models
 {
-    public class Restaurant
-    {
-        public int Id { get; set; }
-
+    public class Restaurant : BreadDataModel
+    {        
         [Required]
         public string Name { get; set; }
 
         public int PriceCategory { get; set; }
 
-        public string BannerPath { get; set; }
+        public string ImagePath { get; set; }
 
         [Required]
         public TimeSpan OpenFrom { get; set; }

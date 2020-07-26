@@ -31,7 +31,8 @@ namespace Bread.Services
 
         private void MapProducts()
         {
-            CreateMap<BLL.Product, DTO.Product>();
+            CreateMap<BLL.Product, DTO.Product>()
+                .ForMember(dto => dto.RestaurantName, options => options.MapFrom(bll => bll.Restaurant.Name));
             CreateMap<DTO.Product, BLL.Product>();
         }
 
@@ -50,7 +51,7 @@ namespace Bread.Services
         private void MapUsers()
         {
             CreateMap<BLL.User, DTO.User>()
-                .ForMember(dtoUser => dtoUser.Password, options => options.Ignore());
+                .ForMember(dto => dto.Password, options => options.Ignore());
             CreateMap<DTO.User, BLL.User>();
         }
     }

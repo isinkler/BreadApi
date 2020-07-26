@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bread.DataTransfer
 {
-    public class Order
+    public class Order : BreadDataTransfer
     {
-        public int Id { get; set; }
-
         public OrderStatus Status { get; set; }
         
         public int PaymentType { get; set; }

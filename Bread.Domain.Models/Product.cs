@@ -2,13 +2,13 @@
 
 namespace Bread.Domain.Models
 {
-    public class Product
-    {
-        public int Id { get; set; }
-        
+    public class Product : BreadDomainModel
+    {                
         public string Name { get; set; }
 
         public double Price { get; set; }
+
+        public string ImagePath { get; set; }
 
         public int RestaurantId { get; set; }
         
