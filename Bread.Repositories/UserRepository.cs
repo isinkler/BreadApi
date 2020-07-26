@@ -2,11 +2,13 @@
 
 using Bread.Common.Extensions;
 using Bread.Data;
+using Bread.Data.Models;
 using Bread.Repositories.Contracts;
 
 using Microsoft.EntityFrameworkCore;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using BLL = Bread.Domain.Models;
@@ -47,6 +49,11 @@ namespace Bread.Repositories
             var result = Mapper.Map<BLL.User>(dalUser);
 
             return result;
+        }
+
+        protected override IQueryable<User> GetEntities()
+        {
+            throw new NotImplementedException();
         }
     }
 }

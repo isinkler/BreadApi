@@ -21,7 +21,7 @@ namespace Bread.Repositories
         {
         }
         
-        public async Task<IEnumerable<Product>> GetAllByRestaurantAsync(int restaurantId)
+        public async Task<IEnumerable<BLL.Product>> GetAllByRestaurantAsync(int restaurantId)
         {
             List<DAL.Product> dalProducts = 
                 await Context.Products.Where(product => product.RestaurantId == restaurantId).ToListAsync();
@@ -29,6 +29,11 @@ namespace Bread.Repositories
             var result = Mapper.Map<IEnumerable<BLL.Product>>(dalProducts);
 
             return result;
-        }                      
+        }
+
+        protected override IQueryable<DAL.Product> GetEntities()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

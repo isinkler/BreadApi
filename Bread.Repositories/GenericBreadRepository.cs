@@ -24,10 +24,12 @@ namespace Bread.Repositories
         {
         }
 
+        protected abstract IQueryable<TDataModel> GetEntities();
+
         public virtual async Task<TDomainModel> GetAsync(int id)
         {
             TDataModel entity =
-                await Context.Set<TDataModel>().SingleOrDefaultAsync(contextEntity => contextEntity.Id == id);
+                await GetEntities().SingleOrDefaultAsync(contextEntity => contextEntity.Id == id);
 
             var result = Mapper.Map<TDomainModel>(entity);
 
@@ -36,7 +38,7 @@ namespace Bread.Repositories
 
         public virtual async Task<IEnumerable<TDomainModel>> GetAllAsync()
         {
-            IQueryable<TDataModel> entitiesQuery = Context.Set<TDataModel>();
+            IQueryable<TDataModel> entitiesQuery = GetEntities();
 
             List<TDataModel> entities = await entitiesQuery.ToListAsync();
 
